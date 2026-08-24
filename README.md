@@ -15,5 +15,5 @@ Projeto da disciplina **Desenvolvimento Web em HTML5, CSS, JavaScript e PHP**.
 | ------------------ | ------------ | ----------------- |
 | Laís Lacerda Gomes | 202503776962 | @laislacerdagomes |
 | Letícia Souza      | 202603075125 | @letvieirasouza   |
-| Alessandra Dias    | 202603075401 | @alessandrawerner |
+| Alessandra Dias Werner   | 202603075401 | @alessandrawerner |
 | Ana Clara          | 202603164391 | @anaagustd        |
