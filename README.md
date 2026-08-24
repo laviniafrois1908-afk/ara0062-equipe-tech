@@ -5,9 +5,9 @@ Projeto da disciplina **Desenvolvimento Web em HTML5, CSS, JavaScript e PHP**.
 
 ## Líder
 
-| Nome          | Matrícula    | GitHub                |
-| ------------- | ------------ | --------------------- |
-| Lavínia Fróis | 202503777012 | @laviniafrois1908-afk |
+| Nome          | Matrícula    | GitHub                |  Período   |
+| ------------- | ------------ | --------------------- |------------|
+| Lavínia Fróis | 202503777012 | @laviniafrois1908-afk | 4°
 
 ## Integrantes
 
