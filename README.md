@@ -15,6 +15,6 @@ Projeto da disciplina **Desenvolvimento Web em HTML5, CSS, JavaScript e PHP**.
 | Nome                    | Matrícula    | GitHub            | Período    |
 | ------------------      | ------------ | ----------------- |----------- |
 | Laís Lacerda Gomes      | 202503776962 | @laislacerdagomes | 4º         |
-| Letícia Vieira Souza    | 202603075125 | @letvieirasouza   |            |
+| Letícia Vieira Souza    | 202603075125 | @letvieirasouza   | 2°         |
 | Alessandra Dias Werner  | 202603075401 | @alessandrawerner | 2°         |
 | Ana Clara Alves Torres  | 202603164391 | @anaagustd        | 2°         |
