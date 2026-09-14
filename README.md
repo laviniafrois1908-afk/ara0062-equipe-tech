@@ -62,3 +62,15 @@ Todos os contrastes principais atendem ao mínimo recomendado de *4,5:1* para te
 
 A identidade visual poderá ser ajustada durante o desenvolvimento caso sejam identificadas necessidades relacionadas à usabilidade, acessibilidade ou coerência visual com a proposta final do projeto.
 
+### Tipografia
+
+**Fonte principal:** Cormorant Garamond, com plano B `Georgia, serif`
+**Pesos:** 400 e 600
+**Por que esta:** A tipografia serifada proporciona um aspecto sofisticado e editorial, reforçando a identidade de uma marca de moda feminina.
+
+**Fonte complementar:** Montserrat, com plano B `Arial, sans-serif`
+**Pesos:** 400 e 600
+
+A fonte complementar será utilizada em textos, menus, botões e demais elementos de interface, contribuindo para uma navegação moderna, limpa e fácil de ler.
+
+**Escala:** `h1` 2.5rem · `h2` 1.75rem · `h3` 1.25rem · corpo 1rem
