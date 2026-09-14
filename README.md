@@ -74,11 +74,3 @@ A identidade visual poderá ser ajustada durante o desenvolvimento caso sejam id
 A fonte complementar será utilizada em textos, menus, botões e demais elementos de interface, contribuindo para uma navegação moderna, limpa e fácil de ler.
 
 **Escala:** `h1` 2.5rem · `h2` 1.75rem · `h3` 1.25rem · corpo 1rem
-
-### Segundo tema
-
-**Arquivo:** `frontend/css/tema-dark.css`
-
-**O que é:** Tema alternativo em modo escuro, desenvolvido para oferecer uma experiência visual diferente da versão principal. Utiliza tons escuros, neutros e detalhes em nude, mantendo a identidade sofisticada e minimalista da marca. Poderá ser utilizado especialmente para navegação noturna ou como opção de personalização da interface.
-
-Para ativá-lo, retire o comentário da linha do `` no arquivo `frontend/index.html`. Essa linha deve permanecer **depois** do `estilo.css`.
