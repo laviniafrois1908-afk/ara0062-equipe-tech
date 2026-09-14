@@ -25,3 +25,11 @@ Projeto da disciplina **Desenvolvimento Web em HTML5, CSS, JavaScript e PHP**.
 *Equipe:* Alessandra Dias Werner de Jesus · Ana Clara Alves Torres · Laís Lacerda Gomes · Lavínia Fróis Almeida · Letícia Vieira Souza
 *Disciplina:* ARA0062 — Desenvolvimento Web em HTML5, CSS, JavaScript e PHP
 *Centro Universitário Newton Paiva · 2026/2*
+
+## Sobre o projeto
+
+O projeto consiste no desenvolvimento de uma loja virtual de moda feminina, criada para pessoas que gostam de se vestir bem, explorar novas tendências e encontrar peças que combinem com sua personalidade. O site oferecerá uma experiência prática, intuitiva e agradável, permitindo que as clientes conheçam as coleções, consultem os detalhes de cada produto e encontrem opções para diferentes estilos e ocasiões.
+
+Até o final do semestre, o projeto prevê a implementação das principais páginas da loja virtual, incluindo a página inicial, o catálogo de produtos, a página de detalhes dos produtos, o carrinho e as áreas de cadastro e login. Também será desenvolvido um formulário para cadastro de clientes e produtos, com as informações relevantes armazenadas em um banco de dados. O banco deverá registrar dados como nome, e-mail, senha, produtos, preços, categorias e pedidos.
+
+Este planejamento poderá ser ajustado ao longo do desenvolvimento, de acordo com as necessidades e decisões da equipe. Sempre que houver alterações no escopo ou nas funcionalidades previstas, este documento será atualizado. 
