@@ -33,3 +33,32 @@ O projeto consiste no desenvolvimento de uma loja virtual de moda feminina, cria
 Até o final do semestre, o projeto prevê a implementação das principais páginas da loja virtual, incluindo a página inicial, o catálogo de produtos, a página de detalhes dos produtos, o carrinho e as áreas de cadastro e login. Também será desenvolvido um formulário para cadastro de clientes e produtos, com as informações relevantes armazenadas em um banco de dados. O banco deverá registrar dados como nome, e-mail, senha, produtos, preços, categorias e pedidos.
 
 Este planejamento poderá ser ajustado ao longo do desenvolvimento, de acordo com as necessidades e decisões da equipe. Sempre que houver alterações no escopo ou nas funcionalidades previstas, este documento será atualizado. 
+
+# Identidade visual
+
+As decisões de identidade visual apresentadas nesta seção serão utilizadas no arquivo frontend/css/estilo.css. A proposta é manter o site sofisticado, minimalista e elegante, utilizando tons neutros e quentes que valorizem os produtos e proporcionem uma experiência visual agradável.
+
+### Paleta de cores
+
+| Papel               | Cor       | Justificativa                                                                                                      |
+| ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------ |
+| --principal       | #2B2523 | Marrom café escuro utilizado nos elementos principais, transmitindo sofisticação e elegância.                      |
+| --sobre-principal | #FFFFFF | Branco utilizado sobre a cor principal, garantindo boa leitura e contraste.                                        |
+| --apoio           | #A67C6B | Nude amarronzado utilizado em botões, destaques e detalhes, trazendo delicadeza e personalidade.                   |
+| --fundo           | #F7F3F0 | Off-white utilizado como fundo geral, proporcionando uma aparência leve e sofisticada.                             |
+| --superficie      | #FFFFFF | Branco utilizado em cartões, produtos e áreas de conteúdo, criando contraste com o fundo.                          |
+| --texto           | #292524 | Preto suave utilizado nos textos, proporcionando excelente legibilidade sem deixar a interface visualmente pesada. |
+
+*Contraste conferido em:*
+https://webaim.org/resources/contrastchecker/
+
+text
+--texto sobre --superficie ......... 14,47:1
+--principal sobre --superficie ..... 12,16:1
+--sobre-principal sobre --principal  12,16:1
+
+
+Todos os contrastes principais atendem ao mínimo recomendado de *4,5:1* para textos, contribuindo para uma interface acessível e de fácil leitura.
+
+A identidade visual poderá ser ajustada durante o desenvolvimento caso sejam identificadas necessidades relacionadas à usabilidade, acessibilidade ou coerência visual com a proposta final do projeto.
+
