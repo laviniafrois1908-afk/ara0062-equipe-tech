@@ -74,3 +74,44 @@ A identidade visual poderá ser ajustada durante o desenvolvimento caso sejam id
 A fonte complementar será utilizada em textos, menus, botões e demais elementos de interface, contribuindo para uma navegação moderna, limpa e fácil de ler.
 
 **Escala:** `h1` 2.5rem · `h2` 1.75rem · `h3` 1.25rem · corpo 1rem
+
+### Segundo tema
+
+*Arquivo:* frontend/css/tema-dark.css
+
+*O que é:* Tema alternativo em modo escuro, desenvolvido para oferecer uma experiência visual diferente da versão principal. Utiliza tons escuros, neutros e detalhes em nude, mantendo a identidade sofisticada e minimalista da marca. Poderá ser utilizado especialmente para navegação noturna ou como opção de personalização da interface.
+
+Para ativá-lo, retire o comentário da linha do <link> no arquivo frontend/index.html. Essa linha deve permanecer *depois* do estilo.css.
+
+---
+
+## Estrutura
+
+text
+.
+├─ README.md                 esta folha de rosto
+├─ frontend/                 tudo o que roda no navegador
+│   ├─ index.html
+│   ├─ css/
+│   │   ├─ estilo.css        folha de estilos principal do projeto
+│   │   └─ tema-dark.css     segundo tema: apenas variáveis
+│   ├─ js/
+│   │   └─ script.js         vazio até o ciclo 6
+│   └─ img/
+└─ backend/                  tudo o que roda no servidor
+    ├─ config/
+    │   └─ conexao.php       vazio até o ciclo 8
+    └─ processa-contato.php
+
+
+---
+
+## Quem fez o quê
+
+| Integrante                      | Responsabilidade                |
+| ------------------------------- | ------------------------------- |
+| Alessandra Dias Werner de Jesus | Formulários e interação         |
+| Ana Clara Alves Torres          | Design, responsividade e testes |
+| Laís Lacerda Gomes              | Front-end e página inicial      |
+| Lavínia Fróis Almeida           | Catálogo e produtos             |
+| Letícia Vieira Souza            | Banco de dados e back-end       |
