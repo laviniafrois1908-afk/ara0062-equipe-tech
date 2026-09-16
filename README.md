@@ -28,60 +28,67 @@ Projeto da disciplina **Desenvolvimento Web em HTML5, CSS, JavaScript e PHP**.
 
 ## Sobre o projeto
 
-O projeto consiste no desenvolvimento de uma loja virtual de moda feminina, criada para pessoas que gostam de se vestir bem, explorar novas tendências e encontrar peças que combinem com sua personalidade. O site oferecerá uma experiência prática, intuitiva e agradável, permitindo que as clientes conheçam as coleções, consultem os detalhes de cada produto e encontrem opções para diferentes estilos e ocasiões.
+O Projeto Versa é uma loja virtual de moda feminina desenvolvida para pessoas que gostam de se vestir bem, acompanhar tendências e encontrar peças que combinem com seu estilo e personalidade. A proposta é oferecer uma experiência prática, intuitiva e agradável para que as clientes possam conhecer diferentes produtos, consultar detalhes das peças e encontrar opções para diferentes estilos e ocasiões.
 
-Até o final do semestre, o projeto prevê a implementação das principais páginas da loja virtual, incluindo a página inicial, o catálogo de produtos, a página de detalhes dos produtos, o carrinho e as áreas de cadastro e login. Também será desenvolvido um formulário para cadastro de clientes e produtos, com as informações relevantes armazenadas em um banco de dados. O banco deverá registrar dados como nome, e-mail, senha, produtos, preços, categorias e pedidos.
-
-Este planejamento poderá ser ajustado ao longo do desenvolvimento, de acordo com as necessidades e decisões da equipe. Sempre que houver alterações no escopo ou nas funcionalidades previstas, este documento será atualizado. 
+Ao final do semestre, o projeto contará com uma página inicial, catálogo de produtos, páginas de detalhes das peças, carrinho de compras e área de cadastro e login de clientes. Também estão previstos formulários para cadastro de clientes e produtos, além da integração com um banco de dados para armazenar informações como nomes, e-mails, senhas, produtos, preços, categorias e pedidos. Como o projeto ainda está em desenvolvimento, algumas funcionalidades e decisões poderão ser ajustadas ao longo das próximas etapas. Caso ocorram mudanças, este README será atualizado.
+ 
 
 # Identidade visual
 
-As decisões de identidade visual apresentadas nesta seção serão utilizadas no arquivo frontend/css/estilo.css. A proposta é manter o site sofisticado, minimalista e elegante, utilizando tons neutros e quentes que valorizem os produtos e proporcionem uma experiência visual agradável.
+As decisões de identidade visual foram pensadas para transmitir uma aparência sofisticada, minimalista e elegante, combinando tons neutros e quentes relacionados ao universo da moda feminina.
 
 ### Paleta de cores
 
-| Papel               | Cor       | Justificativa                                                                                                      |
-| ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------ |
-| --principal       | #2B2523 | Marrom café escuro utilizado nos elementos principais, transmitindo sofisticação e elegância.                      |
-| --sobre-principal | #FFFFFF | Branco utilizado sobre a cor principal, garantindo boa leitura e contraste.                                        |
-| --apoio           | #A67C6B | Nude amarronzado utilizado em botões, destaques e detalhes, trazendo delicadeza e personalidade.                   |
-| --fundo           | #F7F3F0 | Off-white utilizado como fundo geral, proporcionando uma aparência leve e sofisticada.                             |
-| --superficie      | #FFFFFF | Branco utilizado em cartões, produtos e áreas de conteúdo, criando contraste com o fundo.                          |
-| --texto           | #292524 | Preto suave utilizado nos textos, proporcionando excelente legibilidade sem deixar a interface visualmente pesada. |
+| Papel               | Cor       | Por que esta                                                                                      |
+| ------------------- | --------- | ------------------------------------------------------------------------------------------------- |
+| --principal       | #2B2523 | Utilizada em títulos, elementos principais e botões, transmitindo elegância e sofisticação.       |
+| --sobre-principal | #FFFFFF | Utilizada em textos sobre a cor principal, garantindo boa leitura e contraste.                    |
+| --apoio           | #A67C6B | Utilizada em destaques e elementos de apoio, acrescentando um tom quente e delicado à identidade. |
+| --fundo           | #F7F3F0 | Fundo geral das páginas, criando uma aparência leve e agradável.                                  |
+| --superficie      | #FFFFFF | Utilizada em cartões, formulários e áreas de conteúdo para destacar as informações.               |
+| --texto           | #292524 | Cor principal dos textos, proporcionando boa legibilidade.   
 
-*Contraste conferido em:*
-https://webaim.org/resources/contrastchecker/
+*Contraste conferido* em https://webaim.org/resources/contrastchecker/:
 
 text
---texto sobre --superficie ......... 14,47:1
---principal sobre --superficie ..... 12,16:1
---sobre-principal sobre --principal  12,16:1
+--texto sobre --superficie ........ 14,47:1
+--principal sobre --superficie .... 12,16:1
+--sobre-principal sobre --principal 12,16:1
+--texto sobre --fundo ............. 13,80:1
 
 
-Todos os contrastes principais atendem ao mínimo recomendado de *4,5:1* para textos, contribuindo para uma interface acessível e de fácil leitura.
+Todos os principais contrastes atendem ao mínimo recomendado de 4,5:1.
 
 A identidade visual poderá ser ajustada durante o desenvolvimento caso sejam identificadas necessidades relacionadas à usabilidade, acessibilidade ou coerência visual com a proposta final do projeto.
 
 ### Tipografia
 
-**Fonte principal:** Cormorant Garamond, com plano B `Georgia, serif`
-**Pesos:** 400 e 600
-**Por que esta:** A tipografia serifada proporciona um aspecto sofisticado e editorial, reforçando a identidade de uma marca de moda feminina.
+*Títulos:* Cormorant Garamond, com plano B Georgia, serif
+*Pesos:* 400 e 600
+*Por que esta:* A fonte possui um estilo elegante e sofisticado, combinando com a proposta visual de uma loja de moda feminina.
 
-**Fonte complementar:** Montserrat, com plano B `Arial, sans-serif`
-**Pesos:** 400 e 600
+*Textos e interface:* Montserrat, com plano B Arial, sans-serif
+*Pesos:* 400 e 600
+*Por que esta:* É uma fonte limpa e fácil de ler, adequada para textos, menus, botões e informações dos produtos.
 
 A fonte complementar será utilizada em textos, menus, botões e demais elementos de interface, contribuindo para uma navegação moderna, limpa e fácil de ler.
 
-**Escala:** `h1` 2.5rem · `h2` 1.75rem · `h3` 1.25rem · corpo 1rem
+*Escala:* h1 2.5rem · h2 1.75rem · h3 1.25rem · corpo 1rem
 
 ### Segundo tema
 
 *Arquivo:* frontend/css/tema-dark.css
 
-*O que é:* Tema alternativo em modo escuro, desenvolvido para oferecer uma experiência visual diferente da versão principal. Utiliza tons escuros, neutros e detalhes em nude, mantendo a identidade sofisticada e minimalista da marca. Poderá ser utilizado especialmente para navegação noturna ou como opção de personalização da interface.
+*O que é:* Segundo tema visual do projeto, pensado para utilização em ambientes com pouca iluminação ou como opção de personalização da interface.
 
-Para ativá-lo, retire o comentário da linha do <link> no arquivo frontend/index.html. Essa linha deve permanecer *depois* do estilo.css.
+Para ligá-lo, tire o comentário da linha do <link> no frontend/index.html. Ela deve ficar depois do estilo.css.
+
+---
+## Como abrir
+
+1. Abra a *pasta inteira* do projeto no VS Code.
+2. Abra o arquivo frontend/index.html.
+3. Clique em *Go Live* utilizando a extensão Live Server.
 
 ---
 
@@ -93,25 +100,26 @@ text
 ├─ frontend/                 tudo o que roda no navegador
 │   ├─ index.html
 │   ├─ css/
-│   │   ├─ estilo.css        folha de estilos principal do projeto
-│   │   └─ tema-dark.css     segundo tema: apenas variáveis
+│   │   ├─ estilo.css        a folha principal do projeto
+│   │   └─ tema-dark.css     o segundo tema
 │   ├─ js/
-│   │   └─ script.js         vazio até o ciclo 6
-│   └─ img/
+│   │   └─ script.js         funcionalidades JavaScript
+│   └─ img/                  imagens do projeto
 └─ backend/                  tudo o que roda no servidor
     ├─ config/
-    │   └─ conexao.php       vazio até o ciclo 8
+    │   └─ conexao.php       conexão com o banco de dados
     └─ processa-contato.php
-
 
 ---
 
 ## Quem fez o quê
 
-| Integrante                      | Responsabilidade                |
+| Integrante                      | Parte do projeto                |
 | ------------------------------- | ------------------------------- |
 | Alessandra Dias Werner de Jesus | Formulários e interação         |
 | Ana Clara Alves Torres          | Design, responsividade e testes |
 | Laís Lacerda Gomes              | Front-end e página inicial      |
 | Lavínia Fróis Almeida           | Catálogo e produtos             |
 | Letícia Vieira Souza            | Banco de dados e back-end       |
+
+---
