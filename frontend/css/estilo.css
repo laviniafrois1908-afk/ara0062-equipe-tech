@@ -1,0 +1,1615 @@
+/* 1. Responsável: Lavínia Fróis Almeida — variáveis, box-sizing e tema base */
+:root {
+    --principal: #3F2922;
+    --sobre-principal: #FFFFFF;
+    --apoio: #8E6A5A;
+    --realce: #A85D3D;
+    --fundo: #F6F1ED;
+    --superficie: #FFFFFF;
+    --texto: #241A17;
+    --linha: #D8CCC4;
+    --texto-fraco: #675A54;
+    --principal-escuro: #2C1B16;
+    --fonte: "Montserrat", Arial, sans-serif;
+    --e-1: 0.5rem;
+    --e-2: 1rem;
+    --e-3: 1.5rem;
+    --e-4: 2.5rem;
+    --raio: 0.75rem;
+    --sombra: 0 1rem 2.5rem rgba(36, 26, 23, 0.10);
+    --overlay: rgba(36, 26, 23, 0.55);
+}
+
+/* Contraste WCAG:
+texto/superficie 17.00:1 | texto/fundo 15.16:1
+principal/superficie 13.53:1 | sobre-principal/principal 13.53:1
+*/
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* 2. Responsável: Ana Clara Alves Torres — tipografia */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+}
+
+body {
+    margin: 0;
+    color: var(--texto);
+    background: var(--fundo);
+    font-family: var(--fonte);
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3 {
+    margin: 0 0 var(--e-2);
+    color: var(--texto);
+    font-weight: 600;
+    line-height: 1.22;
+    overflow-wrap: anywhere;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.25rem; }
+
+p {
+    margin: 0 0 var(--e-2);
+    overflow-wrap: anywhere;
+}
+
+a { color: inherit; }
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+button, input, select, textarea {
+    font: inherit;
+}
+
+button, a, input, select, textarea {
+    min-height: 44px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* 3. Responsável: Laís Lacerda Gomes — página e conteúdo */
+.container {
+    width: min(1120px, calc(100% - 2rem));
+    margin-inline: auto;
+}
+
+.section {
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+}
+
+.eyebrow {
+    margin-bottom: var(--e-1);
+    color: var(--apoio);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--e-3);
+    margin-bottom: var(--e-3);
+}
+
+.section-heading > p {
+    max-width: 32rem;
+    color: var(--texto-fraco);
+}
+
+.text-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--principal);
+    font-weight: 600;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25rem;
+}
+
+.text-link:hover {
+    color: var(--realce);
+}
+
+.skip-link {
+    position: fixed;
+    top: -5rem;
+    left: var(--e-2);
+    z-index: 100;
+    padding: var(--e-1) var(--e-2);
+    color: var(--sobre-principal);
+    background: var(--principal);
+}
+
+.skip-link:focus {
+    top: var(--e-1);
+}
+
+.hero {
+    position: relative;
+    min-height: min(760px, 78vh);
+    overflow: hidden;
+    color: var(--sobre-principal);
+    background: var(--principal);
+}
+
+.hero-media,
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+}
+
+.hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    background: var(--overlay);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    min-height: min(760px, 78vh);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding-block: 6rem;
+}
+
+.hero h1 {
+    max-width: 44rem;
+    margin-bottom: var(--e-2);
+    color: var(--sobre-principal);
+    font-size: clamp(2.1rem, 6vw, 4rem);
+    line-height: 1.08;
+}
+
+.hero h1 span {
+    display: block;
+}
+
+.hero p {
+    color: var(--sobre-principal);
+}
+
+.hero-content > p:not(.eyebrow) {
+    max-width: 36rem;
+    margin-bottom: var(--e-3);
+}
+
+.hero .eyebrow {
+    color: var(--sobre-principal);
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 48px;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 180ms ease, background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
+
+.button-primary {
+    color: var(--sobre-principal);
+    background: var(--principal);
+}
+
+.button-primary:hover,
+.button-primary:focus-visible {
+    background: var(--principal-escuro);
+}
+
+.button-secondary {
+    color: var(--principal);
+    background: var(--superficie);
+    border-color: var(--principal);
+}
+
+.button-secondary:hover,
+.button-secondary:focus-visible {
+    color: var(--sobre-principal);
+    background: var(--principal);
+}
+
+.button-light {
+    color: var(--principal);
+    background: var(--sobre-principal);
+}
+
+.button-light:hover,
+.button-light:focus-visible {
+    background: var(--fundo);
+}
+
+.hero-controls {
+    position: absolute;
+    right: max(1rem, 5%);
+    bottom: var(--e-3);
+    left: max(1rem, 5%);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hero-arrow,
+.indicator {
+    min-width: 44px;
+    min-height: 44px;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    color: var(--sobre-principal);
+    background: transparent;
+    cursor: pointer;
+}
+
+.hero-arrow {
+    border-radius: 50%;
+}
+
+.hero-arrow:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.hero-indicators {
+    display: flex;
+    gap: var(--e-1);
+}
+
+.indicator {
+    width: 44px;
+    height: 4px;
+    min-height: 4px;
+    padding: 0;
+    border: 0;
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.indicator.active {
+    background: var(--sobre-principal);
+}
+
+.categories-section {
+    background: var(--superficie);
+}
+
+.category-list {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--e-2);
+}
+
+.category-card {
+    position: relative;
+    min-width: 0;
+    min-height: 16rem;
+    overflow: hidden;
+    border-radius: var(--raio);
+    text-decoration: none;
+    background: var(--principal);
+}
+
+.category-card img {
+    width: 100%;
+    height: 100%;
+    min-height: 16rem;
+    object-fit: cover;
+    transition: transform 250ms ease;
+}
+
+.category-card::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background: rgba(36, 26, 23, 0.28);
+}
+
+.category-card span {
+    position: absolute;
+    right: var(--e-2);
+    bottom: var(--e-2);
+    left: var(--e-2);
+    z-index: 1;
+    color: var(--sobre-principal);
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.category-card:hover img {
+    transform: scale(1.05);
+}
+
+.products-section {
+    background: var(--fundo);
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--e-2);
+}
+
+.product-card {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--linha);
+    border-radius: var(--raio);
+    background: var(--superficie);
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra);
+}
+
+.product-card[hidden] {
+    display: none;
+}
+
+.product-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    background: var(--apoio);
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 250ms ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.04);
+}
+
+.favorite-button {
+    position: absolute;
+    top: var(--e-1);
+    right: var(--e-1);
+    display: grid;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    place-items: center;
+    border: 1px solid var(--linha);
+    border-radius: 50%;
+    color: var(--principal);
+    background: var(--superficie);
+    cursor: pointer;
+    font-size: 1.4rem;
+}
+
+.favorite-button.active {
+    color: var(--sobre-principal);
+    background: var(--principal);
+}
+
+.product-info {
+    display: flex;
+    min-height: 245px;
+    flex-direction: column;
+    padding: var(--e-2);
+}
+
+.product-info h3 {
+    min-height: 3.05rem;
+    margin-bottom: var(--e-1);
+}
+
+.product-category,
+.product-colors {
+    color: var(--texto-fraco);
+    font-size: 0.875rem;
+}
+
+.product-price {
+    margin-bottom: var(--e-1);
+    color: var(--principal);
+    font-weight: 600;
+}
+
+.product-info .button {
+    width: 100%;
+    margin-top: auto;
+}
+
+.empty-search {
+    margin-top: var(--e-2);
+    padding: var(--e-2);
+    border: 1px solid var(--linha);
+    background: var(--superficie);
+}
+
+.size-section {
+    background: var(--superficie);
+}
+
+.size-layout,
+.about-layout,
+.contact-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: var(--e-4);
+}
+
+.table-wrapper {
+    min-width: 0;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--superficie);
+}
+
+caption {
+    margin-bottom: var(--e-1);
+    color: var(--texto-fraco);
+    text-align: left;
+}
+
+th,
+td {
+    padding: var(--e-1) var(--e-2);
+    border: 1px solid var(--linha);
+    text-align: left;
+}
+
+thead th {
+    color: var(--sobre-principal);
+    background: var(--principal);
+    font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+    background: var(--fundo);
+}
+
+tbody tr:hover {
+    background: var(--fundo);
+}
+
+.about-section {
+    background: var(--fundo);
+}
+
+.about-image {
+    overflow: hidden;
+    border-radius: var(--raio);
+}
+
+.about-image img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.about-content p {
+    color: var(--texto-fraco);
+}
+
+.contact-section {
+    background: var(--superficie);
+}
+
+.contact-layout {
+    align-items: start;
+}
+
+.contact-form {
+    min-width: 0;
+    padding: var(--e-3);
+    border: 1px solid var(--linha);
+    border-radius: var(--raio);
+    background: var(--fundo);
+}
+
+fieldset {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+legend {
+    margin-bottom: var(--e-2);
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--e-2);
+}
+
+.field {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--e-1);
+}
+
+.field-full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+select,
+textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.75rem;
+    border: 1px solid var(--linha);
+    border-radius: 0.5rem;
+    color: var(--texto);
+    background: var(--superficie);
+}
+
+textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--texto-fraco);
+}
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--e-1);
+    margin-top: var(--e-2);
+}
+
+.form-message {
+    min-height: 1.6em;
+    margin-top: var(--e-1);
+    color: var(--texto-fraco);
+}
+
+.brand-banner {
+    min-height: 26rem;
+    display: grid;
+    place-items: center;
+    color: var(--sobre-principal);
+    background: var(--principal);
+}
+
+.brand-banner-content {
+    padding-block: var(--e-4);
+    text-align: center;
+}
+
+.brand-banner h2 {
+    max-width: 46rem;
+    margin-inline: auto;
+    color: var(--sobre-principal);
+}
+
+.brand-banner .eyebrow {
+    color: var(--sobre-principal);
+}
+
+/* 4. Responsável: Laís Lacerda Gomes — cabeçalho e menu */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--linha);
+    background: var(--superficie);
+}
+
+.header-inner {
+    display: flex;
+    min-height: 72px;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--e-2);
+}
+
+.logo,
+.footer-logo {
+    flex: 0 0 auto;
+    color: var(--principal);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-decoration: none;
+}
+
+.main-nav {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.5rem, 2vw, 1.5rem);
+}
+
+.nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--texto);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.nav-link::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    content: "";
+    background: var(--principal);
+    transform: scaleX(0);
+    transition: transform 180ms ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    transform: scaleX(1);
+}
+
+.header-actions {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: var(--e-1);
+}
+
+.icon-button,
+.bag-button {
+    position: relative;
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    border: 0;
+    color: var(--principal);
+    background: transparent;
+    cursor: pointer;
+}
+
+.icon-button:hover,
+.bag-button:hover {
+    background: var(--fundo);
+}
+
+.bag-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 18px;
+    min-height: 18px;
+    padding-inline: 0.2rem;
+    border-radius: 999px;
+    color: var(--sobre-principal);
+    background: var(--realce);
+    font-size: 0.7rem;
+    line-height: 18px;
+    text-align: center;
+}
+
+.menu-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    padding: 0.6rem;
+    border: 1px solid var(--linha);
+    border-radius: 0.5rem;
+    background: var(--superficie);
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 2px;
+    margin-block: 5px;
+    background: var(--principal);
+}
+
+.search-panel {
+    border-top: 1px solid var(--linha);
+    background: var(--fundo);
+}
+
+.search-inner {
+    padding-block: var(--e-2);
+}
+
+.search-inner label {
+    display: block;
+    margin-bottom: var(--e-1);
+}
+
+.search-control {
+    display: flex;
+    gap: var(--e-1);
+}
+
+.search-control input {
+    flex: 1;
+}
+
+/* 5. Responsável: Alessandra Dias Werner de Jesus — tabela */
+table th {
+    vertical-align: middle;
+}
+
+/* 6. Responsável: Letícia Vieira Souza — formulário e rodapé */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--realce);
+    outline-offset: 3px;
+}
+
+.site-footer {
+    color: var(--sobre-principal);
+    background: var(--principal-escuro);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: var(--e-4);
+    padding-block: var(--e-4);
+}
+
+.site-footer h3,
+.site-footer p,
+.footer-logo {
+    color: var(--sobre-principal);
+}
+
+.site-footer h3 {
+    font-size: 1rem;
+}
+
+.site-footer a:not(.footer-logo) {
+    display: block;
+    width: fit-content;
+    min-height: 44px;
+    padding-block: 0.5rem;
+    color: var(--sobre-principal);
+    text-decoration: none;
+}
+
+.site-footer a:not(.footer-logo):hover {
+    color: var(--fundo);
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    padding-block: var(--e-2);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: var(--sobre-principal);
+    font-size: 0.875rem;
+}
+
+.site-toast {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 100;
+    max-width: min(28rem, calc(100vw - 2rem));
+    padding: 0.9rem 1rem;
+    border-radius: 0.75rem;
+    color: var(--sobre-principal);
+    background: var(--principal);
+    box-shadow: var(--sombra);
+}
+
+@media (max-width: 1080px) {
+    .header-inner {
+        gap: 0.5rem;
+    }
+
+    .main-nav {
+        gap: 0.5rem;
+    }
+
+    .nav-link {
+        font-size: 0.875rem;
+    }
+
+    .category-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .main-nav {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+        order: 2;
+    }
+
+    .logo {
+        order: 1;
+        margin-right: auto;
+    }
+
+    .header-actions {
+        order: 3;
+    }
+
+    .main-nav.open {
+        position: absolute;
+        top: 72px;
+        right: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: var(--e-1);
+        border-top: 1px solid var(--linha);
+        background: var(--superficie);
+        box-shadow: var(--sombra);
+    }
+
+    .nav-link {
+        padding-inline: var(--e-1);
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .size-layout,
+    .about-layout,
+    .contact-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .container {
+        width: min(100% - 1.5rem, 1120px);
+    }
+
+    .hero,
+    .hero-content {
+        min-height: 650px;
+    }
+
+    .hero-content {
+        padding-block: 5rem;
+    }
+
+    .hero h1 {
+        font-size: clamp(2rem, 11vw, 3rem);
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .category-list {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: var(--e-1);
+        scroll-snap-type: x mandatory;
+        scrollbar-width: thin;
+    }
+
+    .category-card {
+        flex: 0 0 11rem;
+        scroll-snap-align: start;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .field-full {
+        grid-column: auto;
+    }
+
+    .search-control {
+        flex-direction: column;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: var(--e-3);
+    }
+
+    .hero-arrow {
+        display: none;
+    }
+}
+
+@media (max-width: 430px) {
+    .header-inner {
+        min-height: 64px;
+    }
+
+    .header-actions {
+        gap: 0;
+    }
+
+    .main-nav.open {
+        top: 64px;
+    }
+
+    .hero,
+    .hero-content {
+        min-height: 620px;
+    }
+
+    .hero-content {
+        justify-content: flex-start;
+        padding-top: 7rem;
+    }
+
+    .hero-controls {
+        right: 1rem;
+        bottom: 1rem;
+        left: 1rem;
+        justify-content: center;
+    }
+
+    .hero-indicators {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .contact-form {
+        padding: var(--e-2);
+    }
+
+    .form-actions .button {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+
+/* 6. Responsável: Alessandra Dias Werner — modais, sacola, conta e interações finais */
+.modal-open {
+    overflow: hidden;
+}
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 105;
+    background: var(--overlay);
+}
+
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 110;
+    display: flex;
+    width: min(28rem, 100%);
+    height: 100dvh;
+    flex-direction: column;
+    background: var(--superficie);
+    box-shadow: var(--sombra);
+    transform: translateX(105%);
+    transition: transform 220ms ease;
+}
+
+.cart-drawer.open {
+    transform: translateX(0);
+}
+
+.drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--e-2);
+    padding: var(--e-3);
+    border-bottom: 1px solid var(--linha);
+}
+
+.drawer-header h2 {
+    margin: 0;
+}
+
+.modal-close {
+    display: inline-grid;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    place-items: center;
+    padding: 0;
+    border: 1px solid var(--linha);
+    border-radius: 50%;
+    color: var(--texto);
+    background: var(--superficie);
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.modal-close:hover,
+.modal-close:focus-visible {
+    color: var(--sobre-principal);
+    background: var(--principal);
+}
+
+.cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--e-2);
+}
+
+.empty-cart {
+    margin: 2rem 0;
+    color: var(--texto-fraco);
+    text-align: center;
+}
+
+.cart-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 5rem 1fr auto;
+    gap: var(--e-2);
+    padding-block: var(--e-2);
+    border-bottom: 1px solid var(--linha);
+}
+
+.cart-item img {
+    width: 5rem;
+    height: 6rem;
+    object-fit: cover;
+    border-radius: var(--raio);
+}
+
+.cart-item-info h3 {
+    margin-bottom: 0.25rem;
+    font-size: 0.95rem;
+}
+
+.cart-item-info p {
+    margin-bottom: var(--e-1);
+    color: var(--principal);
+    font-weight: 600;
+}
+
+.cart-quantity {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+}
+
+.cart-quantity button {
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+    border: 1px solid var(--linha);
+    border-radius: 50%;
+    color: var(--texto);
+    background: var(--superficie);
+    cursor: pointer;
+}
+
+.cart-quantity button:hover,
+.cart-quantity button:focus-visible {
+    color: var(--sobre-principal);
+    background: var(--principal);
+}
+
+.cart-remove {
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    color: var(--texto-fraco);
+    background: transparent;
+    cursor: pointer;
+    font-size: 1.25rem;
+}
+
+.cart-remove:hover,
+.cart-remove:focus-visible {
+    color: var(--realce);
+}
+
+.cart-summary {
+    padding: var(--e-3);
+    border-top: 1px solid var(--linha);
+}
+
+.cart-summary p {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--e-2);
+    margin-bottom: var(--e-2);
+}
+
+.cart-summary .button {
+    width: 100%;
+}
+
+.product-modal,
+.account-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 115;
+    display: grid;
+    overflow-y: auto;
+    place-items: center;
+    padding: var(--e-2);
+}
+
+.modal-card {
+    position: relative;
+    width: min(100%, 34rem);
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+    padding: var(--e-3);
+    border: 1px solid var(--linha);
+    border-radius: var(--raio);
+    background: var(--superficie);
+    box-shadow: var(--sombra);
+}
+
+.product-modal-card {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--e-3);
+}
+
+.product-modal-card > .modal-close {
+    position: absolute;
+    top: var(--e-1);
+    right: var(--e-1);
+    z-index: 2;
+}
+
+.product-modal-card > img {
+    width: 100%;
+    border-radius: var(--raio);
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+}
+
+.product-modal-content h2 {
+    margin-bottom: var(--e-2);
+}
+
+.modal-product-price {
+    color: var(--principal);
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.account-modal {
+    z-index: 116;
+}
+
+.account-card {
+    width: min(100%, 32rem);
+}
+
+.account-header {
+    padding-right: 3rem;
+}
+
+.account-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-block: var(--e-3);
+    border-bottom: 1px solid var(--linha);
+}
+
+.account-tab {
+    min-height: 48px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    color: var(--texto-fraco);
+    background: transparent;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.account-tab.active,
+.account-tab:hover,
+.account-tab:focus-visible {
+    color: var(--principal);
+    border-bottom-color: var(--principal);
+}
+
+.account-form {
+    display: grid;
+    gap: var(--e-2);
+}
+
+.account-form .button {
+    width: 100%;
+}
+
+.account-logged {
+    display: grid;
+    gap: var(--e-2);
+}
+
+.account-logged p:first-child {
+    margin: 0;
+    font-weight: 600;
+}
+
+.product-open-trigger {
+    cursor: pointer;
+}
+
+.product-image.product-open-trigger {
+    position: relative;
+}
+
+.product-image.product-open-trigger:focus-visible {
+    outline: 3px solid var(--realce);
+    outline-offset: 3px;
+}
+
+.product-info h3.product-open-trigger:hover {
+    color: var(--realce);
+}
+
+@media (max-width: 650px) {
+    .product-modal-card {
+        grid-template-columns: 1fr;
+    }
+
+    .product-modal-card > img {
+        max-height: 45vh;
+    }
+
+    .cart-item {
+        grid-template-columns: 4.5rem 1fr auto;
+    }
+
+    .cart-item img {
+        width: 4.5rem;
+        height: 5.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cart-drawer {
+        transition: none;
+    }
+}
+
+/* 6. Responsável: Alessandra Dias Werner — checkout, tamanhos e pagamento */
+.checkout-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 117;
+    display: grid;
+    overflow-y: auto;
+    place-items: center;
+    padding: var(--e-2);
+}
+
+.checkout-card {
+    width: min(100%, 52rem);
+}
+
+.checkout-form {
+    display: grid;
+    gap: var(--e-3);
+}
+
+.checkout-form fieldset {
+    margin: 0;
+    padding: var(--e-3);
+    border: 1px solid var(--linha);
+    border-radius: var(--raio);
+}
+
+.checkout-form legend {
+    padding-inline: var(--e-1);
+    color: var(--principal-escuro);
+    font-weight: 600;
+}
+
+.checkout-form .form-grid {
+    margin-top: var(--e-2);
+}
+
+.checkout-summary {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--e-2);
+    padding: var(--e-3);
+    border: 1px solid var(--linha);
+    border-radius: var(--raio);
+    background: var(--fundo);
+}
+
+.checkout-summary div {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--e-2);
+}
+
+.checkout-summary strong:last-child {
+    color: var(--principal-escuro);
+}
+
+.payment-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--e-2);
+}
+
+.payment-option {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--e-1);
+    min-height: 5rem;
+    padding: var(--e-2);
+    border: 1px solid var(--linha);
+    border-radius: var(--raio);
+    background: var(--superficie);
+    cursor: pointer;
+}
+
+.payment-option:hover,
+.payment-option:focus-within {
+    border-color: var(--principal);
+    box-shadow: 0 0 0 2px var(--principal);
+}
+
+.payment-option input {
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.15rem;
+    accent-color: var(--principal);
+}
+
+.payment-option span {
+    display: grid;
+    gap: 0.25rem;
+}
+
+.payment-option small {
+    color: var(--texto-fraco);
+}
+
+.card-fields {
+    margin-top: var(--e-2);
+}
+
+.size-picker {
+    margin-block: var(--e-2) var(--e-3);
+    padding-top: var(--e-2);
+    border-top: 1px solid var(--linha);
+}
+
+.size-picker-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--e-2);
+}
+
+.size-picker-heading h3 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.text-button {
+    min-height: 44px;
+    padding: 0.4rem 0;
+    border: 0;
+    color: var(--principal-escuro);
+    background: transparent;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.text-button:hover,
+.text-button:focus-visible {
+    color: var(--realce);
+}
+
+.size-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--e-1);
+    margin-top: var(--e-2);
+}
+
+.size-option {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid var(--linha);
+    border-radius: var(--raio);
+    color: var(--texto);
+    background: var(--superficie);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.size-option:hover,
+.size-option:focus-visible,
+.size-option.active {
+    border-color: var(--principal);
+    color: var(--sobre-principal);
+    background: var(--principal);
+}
+
+.product-detail-copy {
+    color: var(--texto-fraco);
+}
+
+.cart-item-size {
+    color: var(--texto-fraco) !important;
+    font-size: 0.875rem;
+    font-weight: 400 !important;
+}
+
+@media (max-width: 800px) {
+    .payment-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .checkout-card {
+        padding: var(--e-2);
+    }
+
+    .checkout-form fieldset {
+        padding: var(--e-2);
+    }
+
+    .checkout-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .size-picker-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+/* 6. Responsável: Alessandra Dias Werner — galeria com cinco fotos por peça */
+.product-gallery {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    align-items: start;
+    gap: var(--e-2);
+}
+
+.product-gallery-thumbs {
+    display: grid;
+    gap: var(--e-1);
+}
+
+.gallery-thumb {
+    width: 4.5rem;
+    height: 5.25rem;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--linha);
+    border-radius: var(--raio);
+    background: var(--superficie);
+    cursor: pointer;
+}
+
+.gallery-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-thumb:hover,
+.gallery-thumb:focus-visible,
+.gallery-thumb.active {
+    border-color: var(--principal);
+    box-shadow: 0 0 0 2px var(--principal);
+}
+
+@media (max-width: 650px) {
+    .product-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .product-gallery-thumbs {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 0.25rem;
+    }
+
+    .gallery-thumb {
+        flex: 0 0 4.25rem;
+        width: 4.25rem;
+        height: 5rem;
+    }
+}

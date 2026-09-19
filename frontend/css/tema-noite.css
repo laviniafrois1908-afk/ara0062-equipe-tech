@@ -1,0 +1,14 @@
+:root {
+    --principal: #B98268;
+    --sobre-principal: #181311;
+    --apoio: #C6A391;
+    --realce: #D58B67;
+    --fundo: #181311;
+    --superficie: #271F1C;
+    --texto: #F7F1ED;
+    --linha: #5A4A43;
+    --texto-fraco: #D5C6BE;
+    --principal-escuro: #D19A7D;
+    --sombra: 0 1rem 2.5rem rgba(0, 0, 0, 0.35);
+    --overlay: rgba(0, 0, 0, 0.65);
+}
