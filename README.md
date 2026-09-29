@@ -101,12 +101,11 @@ Para testar as funcionalidades do back-end em PHP, é necessário utilizar um am
 
 ## Quem fez o quê
 
-| Integrante     | Responsabilidade                              |
-| -------------- | --------------------------------------------- |
-| **Alessandra** | Formulários, validação e interação da página. |
-| **Ana Clara**  | Design visual, responsividade e testes.       |
-| **Laís**       | Front-end e estrutura da página inicial.      |
-| **Lavínia**    | Catálogo, produtos e organização do conteúdo. |
-| **Letícia**    | Back-end, PHP e estrutura de dados.           |
-
----
+| Integrante     | Parte da folha de estilo                                                                    |
+| -------------- | ------------------------------------------------------------------------------------------- |
+| **Lavínia**    | `:root`, variáveis, `box-sizing`, contraste e segundo tema (`tema-noite.css`).              |
+| **Ana Clara**  | Tipografia, web font, escala em `rem`, entrelinha e largura da coluna.                      |
+| **Laís**       | Página e conteúdo: `body`, `main`, `section`, títulos, parágrafos, links, imagens e listas. |
+| **Laís**       | Cabeçalho e menu: `header`, `h1`, `nav`, menu e links.                                      |
+| **Alessandra** | Tabela: `border-collapse`, `caption`, `th`, `td`, cabeçalho e efeito zebra.                 |
+| **Letícia**    | Formulário e rodapé: `fieldset`, `legend`, `label`, campos, botões, `:focus` e `footer`.    |
