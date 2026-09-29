@@ -81,6 +81,7 @@ button, a, input, select, textarea {
     display: none !important;
 } 
 
+
 /* 3. Responsável: Laís Lacerda Gomes — página e conteúdo */
 .container {
     width: min(1120px, calc(100% - 2rem));
