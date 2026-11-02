@@ -135,7 +135,10 @@ Para testar as funcionalidades do back-end em PHP, é necessário utilizar um am
 ### Teste 4 — Envio com dados válidos
 
 - Dado utilizado: nome sem números, e-mail válido, assunto selecionado e mensagem com pelo menos 20 caracteres.
+  
 - Resultado esperado: o formulário deve apresentar a mensagem de validação concluída.
+  
 - Resultado obtido: mensagem de sucesso exibida corretamente.
+  
 - Estrutura utilizada: else.
 
