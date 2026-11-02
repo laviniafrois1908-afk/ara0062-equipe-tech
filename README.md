@@ -109,6 +109,7 @@ Para testar as funcionalidades do back-end em PHP, é necessário utilizar um am
 | **Laís**       | Cabeçalho e menu: `header`, `h1`, `nav`, menu e links.                                      |
 | **Alessandra** | Tabela: `border-collapse`, `caption`, `th`, `td`, cabeçalho e efeito zebra.                 |
 | **Letícia**    | Formulário e rodapé: `fieldset`, `legend`, `label`, campos, botões, `:focus` e `footer`.    |
+
 ## JavaScript
 
 ### Teste 2 — Validação do telefone
@@ -120,3 +121,15 @@ Para testar as funcionalidades do back-end em PHP, é necessário utilizar um am
 - Resultado obtido: mensagem de erro exibida corretamente.
 
 - Estrutura utilizada: if, && e ||.
+
+### Teste 3 — Validação da mensagem
+
+- Dado utilizado: mensagem com menos de 20 caracteres.
+  
+- Resultado esperado: o sistema deve solicitar uma mensagem maior.
+  
+- Resultado obtido: mensagem de erro exibida corretamente.
+  
+- Estrutura utilizada: else if.
+
+  
