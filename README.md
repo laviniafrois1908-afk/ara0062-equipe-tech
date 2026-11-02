@@ -112,6 +112,16 @@ Para testar as funcionalidades do back-end em PHP, é necessário utilizar um am
 
 ## JavaScript
 
+### Teste 1 — Validação do nome
+
+- Dado utilizado: Maria123.
+
+- Resultado esperado: o sistema deve identificar números no nome.
+
+- Resultado obtido: mensagem de erro exibida corretamente.
+
+- Estrutura utilizada: for e if.
+
 ### Teste 2 — Validação do telefone
 
 - Dado utilizado: assunto Encomenda e telefone com quantidade inválida de dígitos.
