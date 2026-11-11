@@ -41,7 +41,7 @@
                     <span aria-hidden="true">◯</span>
                 </button>
                 <button class="bag-button" type="button" aria-label="Abrir sacola">
-                    <span aria-hidden="true">□</span>
+                    <span aria-hidden="true">🛒</span>
                     <span class="bag-count" aria-live="polite">0</span>
                 </button>
             </div>
@@ -435,31 +435,36 @@
                 <button class="account-tab" id="register-tab" type="button" role="tab" aria-selected="false" aria-controls="register-panel">Criar conta</button>
             </div>
 
-            <form class="account-form" id="login-panel" role="tabpanel" aria-labelledby="login-tab">
+            <form class="account-form" id="login-panel" role="tabpanel" aria-labelledby="login-tab" action="../backend/processa-login.php" method="POST">
                 <div class="field">
                     <label for="login-email">E-mail</label>
-                    <input id="login-email" type="email" autocomplete="email" required>
+                    <input id="login-email" name="email" type="email" autocomplete="email" required>
                 </div>
                 <div class="field">
                     <label for="login-password">Senha</label>
-                    <input id="login-password" type="password" autocomplete="current-password" minlength="6" required>
+                    <input id="login-password" name="senha" type="password" autocomplete="current-password" minlength="6" required>
                 </div>
+                
+                <div style="text-align: right; margin-bottom: 12px;">
+                    <a href="esqueci-senha.html" style="font-size: 12px; color: #666; text-decoration: underline;">Esqueci minha senha</a>
+                </div>
+
                 <p class="form-message" id="login-message" aria-live="polite"></p>
                 <button class="button button-primary" type="submit">Entrar</button>
             </form>
 
-            <form class="account-form" id="register-panel" role="tabpanel" aria-labelledby="register-tab" hidden>
+            <form class="account-form" id="register-panel" role="tabpanel" aria-labelledby="register-tab" action="../backend/processa-cadastro.php" method="POST" hidden>
                 <div class="field">
                     <label for="register-name">Nome</label>
-                    <input id="register-name" type="text" autocomplete="name" required>
+                    <input id="register-name" name="nome" type="text" autocomplete="name" required>
                 </div>
                 <div class="field">
                     <label for="register-email">E-mail</label>
-                    <input id="register-email" type="email" autocomplete="email" required>
+                    <input id="register-email" name="email" type="email" autocomplete="email" required>
                 </div>
                 <div class="field">
                     <label for="register-password">Senha</label>
-                    <input id="register-password" type="password" autocomplete="new-password" minlength="6" required>
+                    <input id="register-password" name="senha" type="password" autocomplete="new-password" minlength="6" required>
                 </div>
                 <div class="field">
                     <label for="register-confirm">Confirmar senha</label>
@@ -470,9 +475,40 @@
             </form>
 
             <div class="account-logged" id="account-logged" hidden>
-                <p id="logged-name"></p>
-                <p class="form-message">Você está conectado à sua conta VERSA.</p>
-                <button class="button button-secondary" id="logout-button" type="button">Sair da conta</button>
+                <div class="dashboard-header" style="border-bottom: 1px solid #eee; padding-bottom: 12px; margin-bottom: 15px;">
+                    <h3 id="logged-name" style="font-size: 18px; font-weight: 600; color: #2c2c2c;">Olá, Cliente</h3>
+                    <p class="form-message" style="font-size: 13px; color: #666; margin-top: 4px;">Gerencie seus dados e acompanhe seus pedidos.</p>
+                </div>
+
+                <!-- Abas estilo Centauro -->
+                <div class="account-subtabs" style="display: flex; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 8px;">
+                    <button type="button" class="subtab-btn active" onclick="switchTab('pedidos', event)" style="background: none; border: none; font-size: 13px; font-weight: 600; color: #2c2c2c; cursor: pointer; padding: 5px 0; border-bottom: 2px solid #2c2c2c;">Meus Pedidos</button>
+                    <button type="button" class="subtab-btn" onclick="switchTab('dados', event)" style="background: none; border: none; font-size: 13px; color: #666; cursor: pointer; padding: 5px 0;">Meus Dados</button>
+                </div>
+
+                <!-- Conteúdo da Aba: Pedidos -->
+                <div id="tab-pedidos" class="subtab-content">
+                    <div class="dashboard-section">
+                        <div id="lista-pedidos" class="orders-list">
+                            <div style="background: #f9f9f9; padding: 20px; border-radius: 6px; text-align: center;">
+                                <p class="empty-order" style="font-size: 13px; color: #777; margin-bottom: 8px;">Você ainda não tem pedidos recentes.</p>
+                                <a href="#produtos" style="font-size: 12px; color: #2c2c2c; text-decoration: underline;">Explorar produtos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conteúdo da Aba: Dados Cadastrais -->
+                <div id="tab-dados" class="subtab-content" style="display: none;">
+                    <div style="background: #f9f9f9; padding: 15px; border-radius: 6px; font-size: 13px; color: #444; line-height: 1.6;">
+                        <p style="margin-bottom: 8px;"><strong>Nome:</strong> <span id="user-name-display">-</span></p>
+                        <p><strong>Perfil:</strong> Cliente Cadastrado VERSA</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px;">
+                    <button class="button button-secondary" id="logout-button" type="button" style="width: 100%;">Sair da conta</button>
+                </div>
             </div>
         </div>
     </div>
@@ -502,5 +538,30 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script>
+        function switchTab(tab, event) {
+            const pedidosTab = document.getElementById('tab-pedidos');
+            const dadosTab = document.getElementById('tab-dados');
+            const buttons = document.querySelectorAll('.subtab-btn');
+
+            buttons.forEach(btn => {
+                btn.style.borderBottom = 'none';
+                btn.style.color = '#666';
+                btn.style.fontWeight = '400';
+            });
+
+            if (tab === 'pedidos') {
+                pedidosTab.style.display = 'block';
+                dadosTab.style.display = 'none';
+            } else {
+                pedidosTab.style.display = 'none';
+                dadosTab.style.display = 'block';
+            }
+
+            event.target.style.borderBottom = '2px solid #2c2c2c';
+            event.target.style.color = '#2c2c2c';
+            event.target.style.fontWeight = '600';
+        }
+    </script>
 </body>
 </html>
