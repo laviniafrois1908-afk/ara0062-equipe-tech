@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'config/conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -14,7 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($usuario && password_verify($senha, $usuario['senha'])) {
-                echo "<script>alert('Bem-vindo de volta, " . $usuario['nome'] . "!'); window.location.href='../frontend/index.html';</script>";
+                // Guarda os dados do utilizador na sessão do PHP
+                $_SESSION['usuario_nome'] = $usuario['nome'];
+                $_SESSION['usuario_email'] = $usuario['email'];
+
+                echo "<script>alert('Bem-vindo de volta, " . addslashes($usuario['nome']) . "!'); window.location.href='../frontend/index.html';</script>";
             } else {
                 echo "<script>alert('E-mail ou senha incorretos.'); window.history.back();</script>";
             }
