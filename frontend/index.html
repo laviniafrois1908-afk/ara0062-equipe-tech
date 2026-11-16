@@ -453,22 +453,26 @@
                 <button class="button button-primary" type="submit">Entrar</button>
             </form>
 
-            <form class="account-form" id="register-panel" role="tabpanel" aria-labelledby="register-tab" action="../backend/processa-cadastro.php" method="POST" hidden>
+            <form class="account-form" id="register-panel" role="tabpanel" aria-labelledby="register-tab" action="../backend/processa-cadastro.php" method="POST" novalidate hidden>
                 <div class="field">
                     <label for="register-name">Nome</label>
                     <input id="register-name" name="nome" type="text" autocomplete="name" required>
+                    <small class="field-error" id="error-register-name" style="color: #b00020; font-size: 12px; display: block; margin-top: 4px;"></small>
                 </div>
                 <div class="field">
                     <label for="register-email">E-mail</label>
                     <input id="register-email" name="email" type="email" autocomplete="email" required>
+                    <small class="field-error" id="error-register-email" style="color: #b00020; font-size: 12px; display: block; margin-top: 4px;"></small>
                 </div>
                 <div class="field">
                     <label for="register-password">Senha</label>
                     <input id="register-password" name="senha" type="password" autocomplete="new-password" minlength="6" required>
+                    <small class="field-error" id="error-register-password" style="color: #b00020; font-size: 12px; display: block; margin-top: 4px;"></small>
                 </div>
                 <div class="field">
                     <label for="register-confirm">Confirmar senha</label>
                     <input id="register-confirm" type="password" autocomplete="new-password" minlength="6" required>
+                    <small class="field-error" id="error-register-confirm" style="color: #b00020; font-size: 12px; display: block; margin-top: 4px;"></small>
                 </div>
                 <p class="form-message" id="register-message" aria-live="polite"></p>
                 <button class="button button-primary" type="submit">Criar minha conta</button>
@@ -480,13 +484,11 @@
                     <p class="form-message" style="font-size: 13px; color: #666; margin-top: 4px;">Gerencie seus dados e acompanhe seus pedidos.</p>
                 </div>
 
-                <!-- Abas estilo Centauro -->
                 <div class="account-subtabs" style="display: flex; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 8px;">
-                    <button type="button" class="subtab-btn active" onclick="switchTab('pedidos', event)" style="background: none; border: none; font-size: 13px; font-weight: 600; color: #2c2c2c; cursor: pointer; padding: 5px 0; border-bottom: 2px solid #2c2c2c;">Meus Pedidos</button>
-                    <button type="button" class="subtab-btn" onclick="switchTab('dados', event)" style="background: none; border: none; font-size: 13px; color: #666; cursor: pointer; padding: 5px 0;">Meus Dados</button>
+                    <button type="button" class="subtab-btn active" data-subtab="pedidos" style="background: none; border: none; font-size: 13px; font-weight: 600; color: #2c2c2c; cursor: pointer; padding: 5px 0; border-bottom: 2px solid #2c2c2c;">Meus Pedidos</button>
+                    <button type="button" class="subtab-btn" data-subtab="dados" style="background: none; border: none; font-size: 13px; color: #666; cursor: pointer; padding: 5px 0;">Meus Dados</button>
                 </div>
 
-                <!-- Conteúdo da Aba: Pedidos -->
                 <div id="tab-pedidos" class="subtab-content">
                     <div class="dashboard-section">
                         <div id="lista-pedidos" class="orders-list">
@@ -498,10 +500,9 @@
                     </div>
                 </div>
 
-                <!-- Conteúdo da Aba: Dados Cadastrais -->
                 <div id="tab-dados" class="subtab-content" style="display: none;">
                     <div style="background: #f9f9f9; padding: 15px; border-radius: 6px; font-size: 13px; color: #444; line-height: 1.6;">
-                        <p style="margin-bottom: 8px;"><strong>Nome:</strong> <span id="user-name-display">-</span></p>
+                        <p style="margin-bottom: 8px;"><strong>Nome:</strong> <span id="user-name-disp">-</span></p>
                         <p><strong>Perfil:</strong> Cliente Cadastrado VERSA</p>
                     </div>
                 </div>
@@ -538,30 +539,5 @@
     </footer>
 
     <script src="js/script.js"></script>
-    <script>
-        function switchTab(tab, event) {
-            const pedidosTab = document.getElementById('tab-pedidos');
-            const dadosTab = document.getElementById('tab-dados');
-            const buttons = document.querySelectorAll('.subtab-btn');
-
-            buttons.forEach(btn => {
-                btn.style.borderBottom = 'none';
-                btn.style.color = '#666';
-                btn.style.fontWeight = '400';
-            });
-
-            if (tab === 'pedidos') {
-                pedidosTab.style.display = 'block';
-                dadosTab.style.display = 'none';
-            } else {
-                pedidosTab.style.display = 'none';
-                dadosTab.style.display = 'block';
-            }
-
-            event.target.style.borderBottom = '2px solid #2c2c2c';
-            event.target.style.color = '#2c2c2c';
-            event.target.style.fontWeight = '600';
-        }
-    </script>
 </body>
 </html>

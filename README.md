@@ -1,78 +1,31 @@
-# VERSA
+# VERSA — Loja Virtual de Moda Feminina
 
-**Assunto:** Loja virtual de moda feminina, com foco em praticidade, estilo e experiência do usuário.
+**Assunto:** Loja virtual de moda feminina integrada a banco de dados MySQL, permitindo explorar coleções e categorias, consultar guia de medidas, gerir sacola de compras, cadastrar clientes, finalizar pedidos e acompanhar o histórico de compras.
 **Equipe:** Alessandra · Ana Clara · Laís · Lavínia · Letícia
 **Disciplina:** ARA0062 — Desenvolvimento Web em HTML5, CSS, JavaScript e PHP
 **Centro Universitário Newton Paiva · 2026/2**
 
 ---
 
-## Sobre o projeto
+## Como rodar o projeto no XAMPP
 
-A VERSA é uma loja virtual de moda feminina criada para pessoas que desejam encontrar roupas de forma prática, organizada e agradável. O site permite visualizar produtos, conhecer suas informações e navegar por uma interface pensada para facilitar a experiência de compra.
+1. **Clonar ou copiar a pasta do projeto:**
+   Coloque a pasta `ara0062-equipe-tech` dentro do diretório `htdocs` do seu XAMPP (ex.: `C:\xampp\htdocs\ara0062-equipe-tech`).
 
-Até o final do semestre, o projeto terá páginas para apresentação e catálogo de produtos, informações sobre as peças, formulário de contato e funcionalidades desenvolvidas com HTML5, CSS, JavaScript e PHP. O projeto também contará com uma estrutura de back-end para processar os dados enviados pelos usuários.
+2. **Iniciar os serviços:**
+   Abra o painel de controle do **XAMPP** e inicie os módulos **Apache** e **MySQL**.
 
----
+3. **Importar o banco de dados:**
+   * Acesse o **phpMyAdmin** pelo navegador: `http://localhost/phpmyadmin`
+   * Clique na aba **Importar**, selecione o arquivo `backend/sql/banco.sql` e clique em **Importar** (o script criará automaticamente o banco `projeto_versa` e as tabelas `usuarios`, `pedidos` e `contatos`).
 
-## Identidade visual
-
-A identidade visual foi desenvolvida pensando em uma loja de moda feminina que busca transmitir elegância, sofisticação e modernidade. As cores e a tipografia foram escolhidas para manter uma aparência organizada e agradável, sem prejudicar a leitura.
-
-### Paleta
-
-| Papel               | Cor       | Por que esta                                                                                                            |
-| ------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `--principal`       | `#38241E` | Marrom escuro usado como cor principal. Transmite sofisticação e combina com a proposta elegante e moderna da loja.     |
-| `--sobre-principal` | `#FFFFFF` | Branco utilizado sobre a cor principal para garantir alto contraste e facilitar a leitura.                              |
-| `--apoio`           | `#8E6A5A` | Marrom mais claro utilizado como cor de apoio e para complementar a identidade visual sem competir com a cor principal. |
-| `--fundo`           | `#F6F1ED` | Bege claro usado no fundo da página para criar uma aparência leve, acolhedora e confortável para a navegação.           |
-| `--superficie`      | `#FFFFFF` | Branco utilizado em cartões e áreas de conteúdo para criar contraste com o fundo e destacar as informações.             |
-| `--texto`           | `#241A17` | Marrom muito escuro utilizado nos textos para proporcionar boa legibilidade e manter a identidade visual da marca.      |
-
-**Contraste conferido** em https://webaim.org/resources/contrastchecker/:
-
-```text
---texto sobre --superficie ............ 17,00:1
---principal sobre --superficie ....... 14,59:1
---sobre-principal sobre --principal .. 14,59:1
---texto-fraco sobre --fundo .......... 5,91:1
-```
-
-Todos os pares utilizados para texto atendem ao mínimo de 4,5:1 exigido para texto normal.
-
-### Tipografia
-
-**Fonte:** `"Montserrat"`, com plano B `Arial, sans-serif`
-
-**Pesos:** 400 e 600
-
-**Por que esta:** A Montserrat possui uma aparência moderna e limpa, combinando com a proposta de uma loja de moda feminina e mantendo boa legibilidade em diferentes tamanhos de tela.
-
-**Escala:** `h1` 2.5rem · `h2` 1.75rem · `h3` 1.25rem · corpo 1rem
-
-### Segundo tema
-
-O segundo tema está no arquivo `frontend/css/tema-noite.css`. Ele utiliza as mesmas variáveis do tema principal, mas com valores diferentes, permitindo que a página tenha uma alternativa visual em modo escuro.
-
-O tema foi pensado para ser utilizado como **modo noturno**, oferecendo uma opção de visualização com fundo escuro e cores adaptadas para manter a leitura e o contraste.
-
-O arquivo é carregado depois do `estilo.css`, conforme solicitado na atividade, e permanece comentado no `index.html` durante a entrega.
+4. **Abrir a aplicação no navegador:**
+   Acesse o endereço:
+   `http://localhost/ara0062-equipe-tech/frontend/index.html`
 
 ---
 
-## Como abrir
-
-1. Baixe ou clone o repositório.
-2. Abra a pasta do projeto.
-3. Entre em `frontend`.
-4. Abra o arquivo `index.html` no navegador.
-
-Para testar as funcionalidades do back-end em PHP, é necessário utilizar um ambiente que execute PHP, como XAMPP ou outro servidor local compatível.
-
----
-
-## Estrutura
+## Estrutura do Projeto
 
 ```text
 /
@@ -80,6 +33,7 @@ Para testar as funcionalidades do back-end em PHP, é necessário utilizar um am
 │
 ├── frontend/
 │   ├── index.html
+│   ├── esqueci-senha.html
 │   │
 │   ├── css/
 │   │   ├── estilo.css
@@ -94,61 +48,13 @@ Para testar as funcionalidades do back-end em PHP, é necessário utilizar um am
     ├── config/
     │   └── conexao.php
     │
-    └── processa-contato.php
-```
-
----
-
-## Quem fez o quê
-
-| Integrante     | Parte da folha de estilo                                                                    |
-| -------------- | ------------------------------------------------------------------------------------------- |
-| **Lavínia**    | `:root`, variáveis, `box-sizing`, contraste e segundo tema (`tema-noite.css`).              |
-| **Ana Clara**  | Tipografia, web font, escala em `rem`, entrelinha e largura da coluna.                      |
-| **Laís**       | Página e conteúdo: `body`, `main`, `section`, títulos, parágrafos, links, imagens e listas. |
-| **Laís**       | Cabeçalho e menu: `header`, `h1`, `nav`, menu e links.                                      |
-| **Alessandra** | Tabela: `border-collapse`, `caption`, `th`, `td`, cabeçalho e efeito zebra.                 |
-| **Letícia**    | Formulário e rodapé: `fieldset`, `legend`, `label`, campos, botões, `:focus` e `footer`.    |
-
-## JavaScript
-
-### Teste 1 — Validação do nome
-
-- Dado utilizado: Maria123.
-
-- Resultado esperado: o sistema deve identificar números no nome.
-
-- Resultado obtido: mensagem de erro exibida corretamente.
-
-- Estrutura utilizada: for e if.
-
-### Teste 2 — Validação do telefone
-
-- Dado utilizado: assunto Encomenda e telefone com quantidade inválida de dígitos.
-
-- Resultado esperado: o sistema deve solicitar um telefone com 10 ou 11 dígitos.
-
-- Resultado obtido: mensagem de erro exibida corretamente.
-
-- Estrutura utilizada: if, && e ||.
-
-### Teste 3 — Validação da mensagem
-
-- Dado utilizado: mensagem com menos de 20 caracteres.
-  
-- Resultado esperado: o sistema deve solicitar uma mensagem maior.
-  
-- Resultado obtido: mensagem de erro exibida corretamente.
-  
-- Estrutura utilizada: else if.
-
-### Teste 4 — Envio com dados válidos
-
-- Dado utilizado: nome sem números, e-mail válido, assunto selecionado e mensagem com pelo menos 20 caracteres.
-  
-- Resultado esperado: o formulário deve apresentar a mensagem de validação concluída.
-  
-- Resultado obtido: mensagem de sucesso exibida corretamente.
-  
-- Estrutura utilizada: else.
-
+    ├── sql/
+    │   └── banco.sql
+    │
+    ├── busca-pedidos.php
+    ├── processa-cadastro.php
+    ├── processa-checkout.php
+    ├── processa-contato.php
+    ├── processa-esqueci-senha.php
+    ├── processa-login.php
+    └── verifica-sessao.php

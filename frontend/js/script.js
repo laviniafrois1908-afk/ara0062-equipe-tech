@@ -364,7 +364,7 @@
         registerMessage.textContent = "";
     }
 
-    // Função atualizada para preencher os dados do utilizador e os pedidos vindos do PHP/MySQL
+    // Preenche os dados do utilizador e os pedidos vindos do PHP/MySQL diretamente na aba Meus Pedidos
     function refreshAccountView() {
         fetch('../backend/busca-pedidos.php')
             .then(response => response.json())
@@ -382,44 +382,28 @@
                 
                 if (logged) {
                     loggedName.textContent = `E-mail: ${data.email}`;
+                    const userNameDisp = document.querySelector("#user-name-disp");
+                    if (userNameDisp) userNameDisp.textContent = data.nome || '-';
                     
-                    // Preenche a aba "Meus Dados" com Nome, E-mail, Telefone e Endereço
-                    const dadosContainer = document.querySelector("#register-panel") || document.querySelector(".account-dados") || document.querySelector("#account-logged");
-                    let dadosBox = document.querySelector("#account-dados-detalhes");
-                    if (!dadosBox) {
-                        dadosBox = document.createElement("div");
-                        dadosBox.id = "account-dados-detalhes";
-                        dadosBox.style.cssText = "margin-top: 15px; padding: 15px; background: #f9f9f9; border-radius: 6px; border: 1px solid #ddd;";
-                        // Insere logo abaixo do nome/email na área logada
-                        accountLogged.insertBefore(dadosBox, accountLogged.firstChild);
-                    }
-                    
-                    dadosBox.innerHTML = `
-                        <p><strong>Nome:</strong> ${data.nome || '-'}</p>
-                        <p><strong>E-mail:</strong> ${data.email || '-'}</p>
-                        <p><strong>Telefone:</strong> ${data.telefone || 'Não informado'}</p>
-                        <p><strong>Endereço:</strong> ${data.endereco || 'Não informado'}</p>
-                    `;
-                    
-                    // Renderiza a lista de Pedidos
-                    let pedidosContainer = document.querySelector("#account-pedidos-lista");
-                    if (!pedidosContainer) {
-                        pedidosContainer = document.createElement("div");
-                        pedidosContainer.id = "account-pedidos-lista";
-                        accountLogged.appendChild(pedidosContainer);
-                    }
-                    
-                    if (data.pedidos && data.pedidos.length > 0) {
-                        pedidosContainer.innerHTML = `<h4 style="margin-top: 20px;">Seus Pedidos Recentes:</h4>` + data.pedidos.map(p => `
-                            <div class="pedido-item" style="border: 1px solid #ccc; padding: 10px; margin-top: 10px; border-radius: 4px; background: #fff;">
-                                <p><strong>Pedido ID:</strong> #${p.id}</p>
-                                <p><strong>Total:</strong> ${money(p.total)}</p>
-                                <p><strong>Status:</strong> ${p.status}</p>
-                                <p><strong>Data:</strong> ${p.data_pedido}</p>
-                            </div>
-                        `).join('');
-                    } else {
-                        pedidosContainer.innerHTML = `<p style="margin-top: 15px;">Ainda não tens nenhum pedido registado.</p>`;
+                    const listaPedidos = document.querySelector("#lista-pedidos");
+                    if (listaPedidos) {
+                        if (data.pedidos && data.pedidos.length > 0) {
+                            listaPedidos.innerHTML = data.pedidos.map(p => `
+                                <div class="pedido-item" style="border: 1px solid #e0e0e0; padding: 12px; margin-bottom: 10px; border-radius: 6px; background: #fff; font-size: 13px;">
+                                    <p style="margin-bottom: 4px;"><strong>Pedido:</strong> #${p.id}</p>
+                                    <p style="margin-bottom: 4px;"><strong>Total:</strong> ${money(p.total)}</p>
+                                    <p style="margin-bottom: 4px;"><strong>Status:</strong> ${p.status}</p>
+                                    <p style="color: #666; font-size: 12px;"><strong>Data:</strong> ${p.data_pedido}</p>
+                                </div>
+                            `).join('');
+                        } else {
+                            listaPedidos.innerHTML = `
+                                <div style="background: #f9f9f9; padding: 20px; border-radius: 6px; text-align: center;">
+                                    <p class="empty-order" style="font-size: 13px; color: #777; margin-bottom: 8px;">Você ainda não tem pedidos recentes.</p>
+                                    <a href="#produtos" style="font-size: 12px; color: #2c2c2c; text-decoration: underline;">Explorar produtos</a>
+                                </div>
+                            `;
+                        }
                     }
                 }
                 
@@ -452,9 +436,68 @@
     loginTab?.addEventListener("click", () => setAccountTab("login"));
     registerTab?.addEventListener("click", () => setAccountTab("register"));
 
-    // Registo integrado com o backend PHP
+    // Registo com validação em JS + integração com o backend PHP
     document.querySelector("#register-panel")?.addEventListener("submit", (event) => {
         event.preventDefault();
+
+        const nomeInput = document.querySelector("#register-name");
+        const emailInput = document.querySelector("#register-email");
+        const senhaInput = document.querySelector("#register-password");
+        const confirmInput = document.querySelector("#register-confirm");
+
+        const errNome = document.querySelector("#error-register-name");
+        const errEmail = document.querySelector("#error-register-email");
+        const errSenha = document.querySelector("#error-register-password");
+        const errConfirm = document.querySelector("#error-register-confirm");
+
+        if (errNome) errNome.textContent = "";
+        if (errEmail) errEmail.textContent = "";
+        if (errSenha) errSenha.textContent = "";
+        if (errConfirm) errConfirm.textContent = "";
+        registerMessage.textContent = "";
+
+        const nome = nomeInput?.value.trim() || "";
+        const email = emailInput?.value.trim() || "";
+        const senha = senhaInput?.value || "";
+        const confirmar = confirmInput?.value || "";
+
+        let temErro = false;
+
+        if (nome === "") {
+            if (errNome) errNome.textContent = "Por favor, preencha o seu nome completo.";
+            temErro = true;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email === "") {
+            if (errEmail) errEmail.textContent = "O e-mail é obrigatório.";
+            temErro = true;
+        } else if (!emailRegex.test(email)) {
+            if (errEmail) errEmail.textContent = "Digite um e-mail válido (ex: nome@dominio.com).";
+            temErro = true;
+        }
+
+        if (senha === "") {
+            if (errSenha) errSenha.textContent = "Crie uma senha.";
+            temErro = true;
+        } else if (senha.length < 6) {
+            if (errSenha) errSenha.textContent = "A senha deve ter pelo menos 6 caracteres.";
+            temErro = true;
+        }
+
+        if (confirmar === "") {
+            if (errConfirm) errConfirm.textContent = "Confirme a sua senha.";
+            temErro = true;
+        } else if (senha !== confirmar) {
+            if (errConfirm) errConfirm.textContent = "As senhas não coincidem.";
+            temErro = true;
+        }
+
+        if (temErro) {
+            registerMessage.textContent = "Corrija os campos destacados acima antes de continuar.";
+            return;
+        }
+
         const formData = new FormData(event.target);
         
         fetch('../backend/processa-cadastro.php', {
@@ -467,7 +510,6 @@
                 registerMessage.textContent = "Conta criada com sucesso.";
                 event.target.reset();
                 refreshAccountView();
-                setAccountTab("login");
                 showToast("Conta VERSA criada com sucesso.");
             } else {
                 registerMessage.textContent = resultado.mensagem || "Erro ao criar conta.";
@@ -492,7 +534,7 @@
             if (resultado.sucesso) {
                 event.target.reset();
                 refreshAccountView();
-                showToast(`Bem-vinda de volta.`);
+                showToast("Bem-vinda de volta.");
             } else {
                 loginMessage.textContent = resultado.mensagem || "E-mail ou senha incorretos.";
             }
@@ -638,21 +680,6 @@
     heroIndicators.forEach((indicator) => indicator.addEventListener("click", () => { showSlide(Number(indicator.dataset.slide)); startSlider(); }));
     document.querySelector(".hero")?.addEventListener("mouseenter", stopSlider);
     document.querySelector(".hero")?.addEventListener("mouseleave", startSlider);
-    document.querySelector(".hero")?.addEventListener("focusin", stopSlider);
-    document.querySelector(".hero")?.addEventListener("focusout", (event) => { if (!event.currentTarget.contains(event.relatedTarget)) startSlider(); });
-
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-            setMenu(false);
-            setSearch(false);
-            closeCartView();
-            closeProductModalView();
-            closeAccountModalView();
-            closeCheckoutView();
-            modalBackdrop?.setAttribute("hidden", "");
-            document.body.classList.remove("modal-open");
-        }
-    });
 
     const contactForm = document.querySelector(".contact-form");
     contactForm?.addEventListener("submit", (event) => {
@@ -666,6 +693,33 @@
         }
         formMessage.textContent = "Mensagem enviada com sucesso! Entraremos em contacto em breve.";
         contactForm.reset();
+    });
+
+    // Controle das abas internas da área logada (Meus Pedidos / Meus Dados)
+    document.querySelectorAll(".subtab-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const tab = btn.dataset.subtab;
+            const pedidosTab = document.getElementById("tab-pedidos");
+            const dadosTab = document.getElementById("tab-dados");
+
+            document.querySelectorAll(".subtab-btn").forEach((b) => {
+                b.style.borderBottom = "none";
+                b.style.color = "#666";
+                b.style.fontWeight = "400";
+            });
+
+            if (tab === "pedidos") {
+                if (pedidosTab) pedidosTab.style.display = "block";
+                if (dadosTab) dadosTab.style.display = "none";
+            } else {
+                if (pedidosTab) pedidosTab.style.display = "none";
+                if (dadosTab) dadosTab.style.display = "block";
+            }
+
+            btn.style.borderBottom = "2px solid #2c2c2c";
+            btn.style.color = "#2c2c2c";
+            btn.style.fontWeight = "600";
+        });
     });
 
     startSlider();
