@@ -1,29 +1,36 @@
 <?php
+session_start();
 require_once 'config/conexao.php';
+header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nome = $_POST['nome'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $senha = $_POST['senha'] ?? '';
+$nome = $_POST['nome'] ?? '';
+$email = $_POST['email'] ?? '';
+$senha = $_POST['senha'] ?? '';
+$telefone = $_POST['telefone'] ?? '';
+$endereco = $_POST['endereco'] ?? '';
 
-    if (!empty($nome) && !empty($email) && !empty($senha)) {
-        try {
-            //Criptografa a senha para segurança
-            $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+if (empty($nome) || empty($email) || empty($senha)) {
+    echo json_encode(['sucesso' => false, 'mensagem' => 'Preencha todos os campos obrigatórios.']);
+    exit;
+}
 
-            $sql = "INSERT INTO usuarios (nome, email, senha) VALUES (:nome, :email, :senha)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':nome', $nome);
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':senha', $senhaHash);
-            $stmt->execute();
-
-            echo "<script>alert('Conta criada com sucesso!'); window.location.href='../frontend/index.html';</script>";
-        } catch (PDOException $e) {
-            echo "<script>alert('Erro: Este e-mail já está cadastrado.'); window.history.back();</script>";
-        }
-    } else {
-        echo "<script>alert('Preencha todos os campos.'); window.history.back();</script>";
+try {
+    $stmtCheck = $pdo->prepare("SELECT id FROM usuarios WHERE email = ?");
+    $stmtCheck->execute([$email]);
+    if ($stmtCheck->rowCount() > 0) {
+        echo json_encode(['sucesso' => false, 'mensagem' => 'Este e-mail já está registado.']);
+        exit;
     }
+
+    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+    $stmt = $pdo->prepare("INSERT INTO usuarios (nome, email, senha, telefone, endereco) VALUES (?, ?, ?, ?, ?)");
+    $stmt->execute([$nome, $email, $senhaHash, $telefone, $endereco]);
+
+    $_SESSION['usuario_email'] = $email;
+    $_SESSION['usuario_nome'] = $nome;
+
+    echo json_encode(['sucesso' => true, 'mensagem' => 'Conta criada com sucesso!']);
+} catch (PDOException $e) {
+    echo json_encode(['sucesso' => false, 'mensagem' => 'Erro ao criar conta: ' . $e->getMessage()]);
 }
 ?>

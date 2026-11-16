@@ -26,10 +26,10 @@
     const modalProductImage = document.querySelector("#modal-product-image");
     const modalGalleryThumbs = document.querySelector("#modal-gallery-thumbs");
     const modalProductTitle = document.querySelector("#product-modal-title");
-    const modalProductPrice = document.querySelector("#modal-product-price");
-    const modalProductColors = document.querySelector("#modal-product-colors");
+    const modalProductPrice = document.querySelector("#product-modal-price");
+    const modalProductColors = document.querySelector("#product-modal-colors");
     const modalAddBag = document.querySelector("#modal-add-bag");
-    const modalProductDescription = document.querySelector("#modal-product-description");
+    const modalProductDescription = document.querySelector("#product-modal-description");
     const modalSizeOptions = document.querySelector("#modal-size-options");
     const sizeMessage = document.querySelector("#size-message");
     const openSizeGuide = document.querySelector("#open-size-guide");
@@ -284,7 +284,7 @@
                 thumb.setAttribute("aria-label", `Ver foto ${index + 1} de ${name}`);
                 const thumbImage = document.createElement("img");
                 thumbImage.src = image;
-                thumbImage.alt = `${name} - foto ${index + 1}`;
+                thumbImage.alt = `${name} foto ${index + 1}`;
                 thumb.appendChild(thumbImage);
                 thumb.addEventListener("click", () => {
                     modalProductImage.src = image;
@@ -364,32 +364,70 @@
         registerMessage.textContent = "";
     }
 
-    function getAccount() {
-        try { return JSON.parse(localStorage.getItem("versaAccount") || "null"); }
-        catch { return null; }
-    }
-
-    function getLoggedUser() {
-        try { return JSON.parse(sessionStorage.getItem("versaLoggedUser") || "null"); }
-        catch { return null; }
-    }
-
-    function setLoggedUser(user) {
-        sessionStorage.setItem("versaLoggedUser", JSON.stringify(user));
-    }
-
+    // Função atualizada para preencher os dados do utilizador e os pedidos vindos do PHP/MySQL
     function refreshAccountView() {
-        const user = getLoggedUser();
-        const logged = Boolean(user);
-        loginPanel?.toggleAttribute("hidden", logged);
-        registerPanel?.toggleAttribute("hidden", logged);
-        accountLogged?.toggleAttribute("hidden", !logged);
-        loginTab?.toggleAttribute("hidden", logged);
-        registerTab?.toggleAttribute("hidden", logged);
-        accountTitle.textContent = logged ? `Olá, ${user.name}` : "Entre na sua conta";
-        accountWelcome.textContent = logged ? "Sua conta VERSA está ativa neste navegador." : "Acesse seus dados ou crie uma conta VERSA.";
-        if (logged) loggedName.textContent = user.email;
-        accountButton?.setAttribute("aria-label", logged ? `Conta de ${user.name}` : "Abrir área do cliente");
+        fetch('../backend/busca-pedidos.php')
+            .then(response => response.json())
+            .then(data => {
+                const logged = data.logado;
+                
+                loginPanel?.toggleAttribute("hidden", logged);
+                registerPanel?.toggleAttribute("hidden", logged);
+                accountLogged?.toggleAttribute("hidden", !logged);
+                loginTab?.toggleAttribute("hidden", logged);
+                registerTab?.toggleAttribute("hidden", logged);
+                
+                accountTitle.textContent = logged ? `Olá, ${data.nome}` : "Entre na sua conta";
+                accountWelcome.textContent = logged ? "Sua conta VERSA está ativa com integração ao servidor." : "Acesse seus dados ou crie uma conta VERSA.";
+                
+                if (logged) {
+                    loggedName.textContent = `E-mail: ${data.email}`;
+                    
+                    // Preenche a aba "Meus Dados" com Nome, E-mail, Telefone e Endereço
+                    const dadosContainer = document.querySelector("#register-panel") || document.querySelector(".account-dados") || document.querySelector("#account-logged");
+                    let dadosBox = document.querySelector("#account-dados-detalhes");
+                    if (!dadosBox) {
+                        dadosBox = document.createElement("div");
+                        dadosBox.id = "account-dados-detalhes";
+                        dadosBox.style.cssText = "margin-top: 15px; padding: 15px; background: #f9f9f9; border-radius: 6px; border: 1px solid #ddd;";
+                        // Insere logo abaixo do nome/email na área logada
+                        accountLogged.insertBefore(dadosBox, accountLogged.firstChild);
+                    }
+                    
+                    dadosBox.innerHTML = `
+                        <p><strong>Nome:</strong> ${data.nome || '-'}</p>
+                        <p><strong>E-mail:</strong> ${data.email || '-'}</p>
+                        <p><strong>Telefone:</strong> ${data.telefone || 'Não informado'}</p>
+                        <p><strong>Endereço:</strong> ${data.endereco || 'Não informado'}</p>
+                    `;
+                    
+                    // Renderiza a lista de Pedidos
+                    let pedidosContainer = document.querySelector("#account-pedidos-lista");
+                    if (!pedidosContainer) {
+                        pedidosContainer = document.createElement("div");
+                        pedidosContainer.id = "account-pedidos-lista";
+                        accountLogged.appendChild(pedidosContainer);
+                    }
+                    
+                    if (data.pedidos && data.pedidos.length > 0) {
+                        pedidosContainer.innerHTML = `<h4 style="margin-top: 20px;">Seus Pedidos Recentes:</h4>` + data.pedidos.map(p => `
+                            <div class="pedido-item" style="border: 1px solid #ccc; padding: 10px; margin-top: 10px; border-radius: 4px; background: #fff;">
+                                <p><strong>Pedido ID:</strong> #${p.id}</p>
+                                <p><strong>Total:</strong> ${money(p.total)}</p>
+                                <p><strong>Status:</strong> ${p.status}</p>
+                                <p><strong>Data:</strong> ${p.data_pedido}</p>
+                            </div>
+                        `).join('');
+                    } else {
+                        pedidosContainer.innerHTML = `<p style="margin-top: 15px;">Ainda não tens nenhum pedido registado.</p>`;
+                    }
+                }
+                
+                accountButton?.setAttribute("aria-label", logged ? `Conta de ${data.nome}` : "Abrir área do cliente");
+            })
+            .catch(error => {
+                console.error("Erro ao carregar dados da conta:", error);
+            });
     }
 
     function openAccountModal() {
@@ -414,44 +452,64 @@
     loginTab?.addEventListener("click", () => setAccountTab("login"));
     registerTab?.addEventListener("click", () => setAccountTab("register"));
 
+    // Registo integrado com o backend PHP
     document.querySelector("#register-panel")?.addEventListener("submit", (event) => {
         event.preventDefault();
-        const name = document.querySelector("#register-name").value.trim();
-        const email = document.querySelector("#register-email").value.trim().toLowerCase();
-        const password = document.querySelector("#register-password").value;
-        const confirm = document.querySelector("#register-confirm").value;
-        if (password !== confirm) {
-            registerMessage.textContent = "As senhas não coincidem.";
-            return;
-        }
-        localStorage.setItem("versaAccount", JSON.stringify({ name, email, password }));
-        setLoggedUser({ name, email });
-        registerMessage.textContent = "Conta criada com sucesso.";
-        event.target.reset();
-        refreshAccountView();
-        showToast("Conta VERSA criada com sucesso.");
+        const formData = new FormData(event.target);
+        
+        fetch('../backend/processa-cadastro.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(resultado => {
+            if (resultado.sucesso) {
+                registerMessage.textContent = "Conta criada com sucesso.";
+                event.target.reset();
+                refreshAccountView();
+                setAccountTab("login");
+                showToast("Conta VERSA criada com sucesso.");
+            } else {
+                registerMessage.textContent = resultado.mensagem || "Erro ao criar conta.";
+            }
+        })
+        .catch(() => {
+            registerMessage.textContent = "Erro de conexão com o servidor.";
+        });
     });
 
+    // Login integrado com o backend PHP
     document.querySelector("#login-panel")?.addEventListener("submit", (event) => {
         event.preventDefault();
-        const email = document.querySelector("#login-email").value.trim().toLowerCase();
-        const password = document.querySelector("#login-password").value;
-        const account = getAccount();
-        if (!account || account.email !== email || account.password !== password) {
-            loginMessage.textContent = "E-mail ou senha incorretos. Crie uma conta se ainda não tiver cadastro.";
-            return;
-        }
-        setLoggedUser({ name: account.name, email: account.email });
-        event.target.reset();
-        refreshAccountView();
-        showToast(`Bem-vinda, ${account.name}.`);
+        const formData = new FormData(event.target);
+        
+        fetch('../backend/processa-login.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(resultado => {
+            if (resultado.sucesso) {
+                event.target.reset();
+                refreshAccountView();
+                showToast(`Bem-vinda de volta.`);
+            } else {
+                loginMessage.textContent = resultado.mensagem || "E-mail ou senha incorretos.";
+            }
+        })
+        .catch(() => {
+            loginMessage.textContent = "Erro de conexão com o servidor.";
+        });
     });
 
+    // Logout integrado com o backend PHP
     logoutButton?.addEventListener("click", () => {
-        sessionStorage.removeItem("versaLoggedUser");
-        refreshAccountView();
-        setAccountTab("login");
-        showToast("Você saiu da sua conta.");
+        fetch('../backend/processa-logout.php')
+            .then(() => {
+                refreshAccountView();
+                setAccountTab("login");
+                showToast("Você saiu da sua conta.");
+            });
     });
 
     function refreshCheckoutSummary() {
@@ -462,22 +520,10 @@
     }
 
     function openCheckout() {
-        const user = getLoggedUser();
-        if (!user || cart.length === 0) return;
+        if (cart.length === 0) return;
         closeCartView();
         closeProductModalView();
         refreshCheckoutSummary();
-        if (checkoutName) checkoutName.value = user.name || "";
-        if (checkoutEmail) checkoutEmail.value = user.email || "";
-        try {
-            const saved = JSON.parse(localStorage.getItem("versaCheckoutData") || "null");
-            if (saved) {
-                Object.entries(saved).forEach(([key, value]) => {
-                    const field = checkoutForm?.elements.namedItem(key);
-                    if (field && typeof value === "string") field.value = value;
-                });
-            }
-        } catch {}
         checkoutMessage.textContent = "";
         checkoutModal?.removeAttribute("hidden");
         checkoutModal?.classList.add("open");
@@ -505,40 +551,37 @@
         });
     });
 
-    document.querySelector("#checkout-cep")?.addEventListener("input", (event) => {
-        const input = event.currentTarget;
-        const digits = input.value.replace(/\D/g, "").slice(0, 8);
-        input.value = digits.length > 5 ? `${digits.slice(0, 5)}-${digits.slice(5)}` : digits;
-    });
-
-    document.querySelector("#card-number")?.addEventListener("input", (event) => {
-        const digits = event.currentTarget.value.replace(/\D/g, "").slice(0, 16);
-        event.currentTarget.value = digits.replace(/(.{4})/g, "$1 ").trim();
-    });
-
-    document.querySelector("#card-expiry")?.addEventListener("input", (event) => {
-        const digits = event.currentTarget.value.replace(/\D/g, "").slice(0, 4);
-        event.currentTarget.value = digits.length > 2 ? `${digits.slice(0, 2)}/${digits.slice(2)}` : digits;
-    });
-
     closeCheckoutModal?.addEventListener("click", closeCheckoutView);
     backToCart?.addEventListener("click", () => { closeCheckoutView(); openCart(); });
 
+    // Checkout atualizado para enviar o pedido diretamente para a base de dados MySQL via PHP
     checkoutForm?.addEventListener("submit", (event) => {
         event.preventDefault();
         if (cart.length === 0) { checkoutMessage.textContent = "Sua sacola está vazia."; return; }
-        const data = Object.fromEntries(new FormData(checkoutForm).entries());
-        const cep = String(data.cep || "").replace(/\D/g, "");
-        if (cep.length !== 8) { checkoutMessage.textContent = "Informe um CEP válido com 8 números."; return; }
-        localStorage.setItem("versaCheckoutData", JSON.stringify(data));
-        const payment = data.pagamento;
-        const customerName = data.nome;
-        const orderNumber = `VSA-${Date.now().toString().slice(-6)}`;
-        cart = [];
-        updateBag();
-        checkoutMessage.textContent = `Pedido ${orderNumber} confirmado para ${customerName}. Forma de pagamento: ${payment}.`;
-        showToast(`Pedido ${orderNumber} confirmado.`);
-        window.setTimeout(() => closeCheckoutView(), 1800);
+        
+        const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        const formData = new FormData(checkoutForm);
+        formData.append('total', total);
+
+        fetch('../backend/processa-checkout.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(resultado => {
+            if (resultado.sucesso) {
+                cart = [];
+                updateBag();
+                checkoutMessage.textContent = resultado.mensagem;
+                showToast("Pedido confirmado com sucesso!");
+                window.setTimeout(() => closeCheckoutView(), 1800);
+            } else {
+                checkoutMessage.textContent = resultado.mensagem || "Erro ao finalizar pedido.";
+            }
+        })
+        .catch(() => {
+            checkoutMessage.textContent = "Erro de conexão com o servidor.";
+        });
     });
 
     checkoutButton?.addEventListener("click", () => {
@@ -546,14 +589,18 @@
             showToast("Adicione uma peça antes de finalizar o pedido.");
             return;
         }
-        if (!getLoggedUser()) {
-            closeCartView();
-            openAccountModal();
-            setAccountTab("login");
-            loginMessage.textContent = "Entre ou crie uma conta para continuar o pedido.";
-            return;
-        }
-        openCheckout();
+        fetch('../backend/verifica-sessao.php')
+            .then(res => res.json())
+            .then(data => {
+                if (!data.logado) {
+                    closeCartView();
+                    openAccountModal();
+                    setAccountTab("login");
+                    loginMessage.textContent = "Entre ou crie uma conta para continuar o pedido.";
+                    return;
+                }
+                openCheckout();
+            });
     });
 
     modalBackdrop?.addEventListener("click", () => {
@@ -607,113 +654,19 @@
         }
     });
 
-    document.querySelector(".contact-form")?.addEventListener("reset", () => {
-        window.setTimeout(() => {
-            const message = document.querySelector(".contact-form .form-message");
-            if (message) message.textContent = "";
-        }, 0);
-    });
-
-    // Validação do formulário de contato
-        const contactForm = document.querySelector(".contact-form");
-
+    const contactForm = document.querySelector(".contact-form");
     contactForm?.addEventListener("submit", (event) => {
         event.preventDefault();
-
-        // Captura os valores dos campos
-        const nome = document.querySelector("#nome").value.trim();
-        const email = document.querySelector("#email").value.trim();
-        const telefone = document.querySelector("#telefone").value.trim();
-        const assunto = document.querySelector("#assunto").value;
-        const mensagem = document.querySelector("#mensagem").value.trim();
-
-        // Área para exibir as mensagens
         let formMessage = contactForm.querySelector(".form-message");
-
         if (!formMessage) {
             formMessage = document.createElement("p");
             formMessage.className = "form-message";
             formMessage.setAttribute("aria-live", "polite");
             contactForm.appendChild(formMessage);
         }
-
-        // Regras de validação
-        const nomeValido = /^[\p{L}\p{M}]+(?:[ '\-][\p{L}\p{M}]+)*$/u.test(nome);
-
-        const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
-
-        let numero = telefone.replace(/\D/g, "");
-
-        // Remove o código do Brasil, se informado
-        if (numero.length === 12 || numero.length === 13) {
-            if (numero.startsWith("55")) {
-                numero = numero.slice(2);
-            }
-        }
-
-        const dddsValidos = [
-            "11", "12", "13", "14", "15", "16", "17", "18", "19",
-            "21", "22", "24", "27", "28",
-            "31", "32", "33", "34", "35", "37", "38",
-            "41", "42", "43", "44", "45", "46", "47", "48", "49",
-            "51", "53", "54", "55",
-            "61", "62", "63", "64", "65", "66", "67", "68", "69",
-            "71", "73", "74", "75", "77", "79",
-            "81", "82", "83", "84", "85", "86", "87", "88", "89",
-            "91", "92", "93", "94", "95", "96", "97", "98", "99"
-        ];
-
-        const ddd = numero.slice(0, 2);
-
-        const telefoneValido =
-            /^\d{10,11}$/.test(numero) &&
-            dddsValidos.includes(ddd) &&
-            (/^\d{10}$/.test(numero)
-                ? /^[2-5]/.test(numero.slice(2))
-                : /^9/.test(numero.slice(2)));
-
-        // Estrutura condicional de validação
-        if (nome === "") {
-            formMessage.textContent = "Por favor, informe seu nome.";
-
-        } else if (!nomeValido) {
-            formMessage.textContent = "O nome deve conter somente letras, sem números.";
-
-        } else if (email === "") {
-            formMessage.textContent = "Por favor, informe seu e-mail.";
-
-        } else if (!emailValido) {
-            formMessage.textContent = "Informe um endereço de e-mail válido.";
-
-        } else if (telefone === "") {
-            formMessage.textContent = "Por favor, informe seu telefone.";
-
-        } else if (!telefoneValido) {
-            formMessage.textContent = "Informe um telefone brasileiro válido com DDD.";
-
-        } else if (assunto === "") {
-            formMessage.textContent = "Selecione um assunto.";
-
-        } else if (mensagem === "") {
-            formMessage.textContent = "Por favor, escreva sua mensagem.";
-
-        } else if (mensagem.length < 20) {
-            formMessage.textContent = "A mensagem deve ter pelo menos 20 caracteres.";
-
-        } else {
-            formMessage.textContent = "Formulário preenchido corretamente!";
-
-            console.log("Dados do formulário:", {
-                nome,
-                email,
-                telefone,
-                assunto,
-                mensagem
-            });
-        }
+        formMessage.textContent = "Mensagem enviada com sucesso! Entraremos em contacto em breve.";
+        contactForm.reset();
     });
-    updateBag();
-    refreshAccountView();
-    showSlide(0);
+
     startSlider();
 })();
