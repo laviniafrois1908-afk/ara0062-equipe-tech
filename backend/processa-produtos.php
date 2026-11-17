@@ -1,11 +1,19 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
-
 require_once 'config/conexao.php';
 
 try {
-    $sql = "SELECT id, nome, descricao, preco, categoria, imagem FROM produtos";
-    $resultado = $conexao->query($sql);
+    // Verifica se foi passada alguma categoria via GET (ex: processa-produtos.php?categoria=Blusas)
+    if (isset($_GET['categoria']) && !empty($_GET['categoria'])) {
+        $categoria = $_GET['categoria'];
+        $stmt = $conexao->prepare("SELECT id, nome, descricao, preco, categoria, imagem FROM produtos WHERE categoria = ?");
+        $stmt->bind_param("s", $categoria);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+    } else {
+        $sql = "SELECT id, nome, descricao, preco, categoria, imagem FROM produtos";
+        $resultado = $conexao->query($sql);
+    }
 
     $produtos = [];
 
@@ -21,9 +29,10 @@ try {
     ]);
 
 } catch (Exception $e) {
+    http_response_code(500);
     echo json_encode([
         'sucesso' => false,
-        'mensagem' => 'Erro ao carregar os produtos: ' . $e->getMessage()
+        'mensagem' => 'Erro ao buscar produtos: ' . $e->getMessage()
     ]);
 }
 ?>

@@ -22,7 +22,7 @@
 
 * **Lavínia Fróis Almeida**  
   * **Área:** Catálogo, produtos e validações.  
-  * **Atividades:** Desenvolvimento do catálogo e páginas de produtos, e validação JavaScript do formulário de contato.
+  * **Atividades:** Desenvolvimento do catálogo e páginas de produtos, validação JavaScript do formulário de contato e revisão geral da integração.
 
 * **Letícia Vieira Souza**  
   * **Área:** Banco de dados e back-end.  
@@ -30,7 +30,7 @@
 
 ---
 
-## Como rodar o projeto no XAMPP
+## 🚀 Como rodar o projeto no XAMPP
 
 1. **Clonar ou copiar a pasta do projeto:**
    Coloque a pasta `ara0062-equipe-tech` dentro do diretório `htdocs` do seu XAMPP (ex.: `C:\xampp\htdocs\ara0062-equipe-tech`).
@@ -39,16 +39,16 @@
    Abra o painel de controle do **XAMPP** e inicie os módulos **Apache** e **MySQL**.
 
 3. **Importar o banco de dados:**
-   - Acesse o **phpMyAdmin** pelo navegador: `http://localhost/phpmyadmin` (ou com a porta `http://localhost:8080/phpmyadmin` conforme a sua configuração local).
-   - Clique na aba **Importar**, selecione o arquivo `backend/sql/banco.sql` e clique em **Importar** (o script criará automaticamente o banco `projeto_versa` e as tabelas `usuarios`, `pedidos` e `contatos`).
+   - Acesse o **phpMyAdmin** pelo navegador: `http://localhost/phpmyadmin` (ou `http://localhost:8080/phpmyadmin` conforme a porta configurada no seu XAMPP).
+   - Clique na aba **Importar**, selecione o arquivo `backend/sql/banco.sql` e clique em **Importar** (o script criará automaticamente o banco `projeto_versa` e as tabelas necessárias).
 
 4. **Abrir a aplicação no navegador:**
-   Acesse o endereço (ajustando a porta se utilizar a `8080`):
+   Acesse o endereço:
    `http://localhost:8080/ara0062-equipe-tech/frontend/index.html`
 
 ---
 
-## Estrutura do Projeto
+## 📂 Estrutura do Projeto
 
 ```text
 /
@@ -80,4 +80,5 @@
     ├── processa-contato.php
     ├── processa-esqueci-senha.php
     ├── processa-login.php
+    ├── processa-produtos.php
     └── verifica-sessao.php

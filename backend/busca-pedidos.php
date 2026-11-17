@@ -1,33 +1,50 @@
 <?php
 session_start();
+header('Content-Type: application/json; charset=utf-8');
 require_once 'config/conexao.php';
-header('Content-Type: application/json');
 
-if (!isset($_SESSION['usuario_email'])) {
-    echo json_encode(['logado' => false]);
+// Verifica se o utilizador está autenticado na sessão
+if (!isset($_SESSION['usuario_id']) && isset($_GET['usuario_id'])) {
+    $_SESSION['usuario_id'] = $_GET['usuario_id'];
+}
+
+if (!isset($_SESSION['usuario_id'])) {
+    echo json_encode([
+        'sucesso' => false, 
+        'mensagem' => 'Utilizador não autenticado.'
+    ]);
     exit;
 }
 
-$email = $_SESSION['usuario_email'];
+$usuario_id = $_SESSION['usuario_id'];
 
 try {
-    // Busca os dados cadastrais do utilizador
-    $stmtUser = $pdo->prepare("SELECT nome, email FROM usuarios WHERE email = ?");
-    $stmtUser->execute([$email]);
-    $usuario = $stmtUser->fetch(PDO::FETCH_ASSOC);
+    // Consulta os pedidos e os respetivos produtos do utilizador logado
+    $sql = "SELECT p.id as pedido_id, p.data_pedido, p.total, pr.nome as produto_nome, pr.preco, pr.imagem 
+            FROM pedidos p 
+            LEFT JOIN itens_pedido ip ON p.id = ip.pedido_id 
+            LEFT JOIN produtos pr ON ip.produto_id = pr.id 
+            WHERE p.usuario_id = ?";
+    
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("i", $usuario_id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
 
-    // Busca os pedidos associados a este email
-    $stmtPedidos = $pdo->prepare("SELECT * FROM pedidos WHERE usuario_email = ? ORDER BY data_pedido DESC");
-    $stmtPedidos->execute([$email]);
-    $pedidos = $stmtPedidos->fetchAll(PDO::FETCH_ASSOC);
+    $pedidos = [];
+    while ($row = $resultado->fetch_assoc()) {
+        $pedidos[] = $row;
+    }
 
     echo json_encode([
-        'logado' => true,
-        'nome' => $usuario['nome'] ?? ($_SESSION['usuario_nome'] ?? 'Cliente VERSA'),
-        'email' => $email,
+        'sucesso' => true, 
         'pedidos' => $pedidos
     ]);
-} catch (PDOException $e) {
-    echo json_encode(['logado' => false, 'erro' => $e->getMessage()]);
+
+} catch (Exception $e) {
+    echo json_encode([
+        'sucesso' => false, 
+        'mensagem' => 'Erro ao buscar pedidos: ' . $e->getMessage()
+    ]);
 }
 ?>

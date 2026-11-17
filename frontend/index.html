@@ -38,7 +38,7 @@
                     <span aria-hidden="true">⌕</span>
                 </button>
                 <button class="icon-button" id="account-button" type="button" aria-label="Abrir área do cliente" aria-expanded="false">
-                    <span aria-hidden="true">◯</span>
+                    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                 </button>
                 <button class="bag-button" type="button" aria-label="Abrir sacola">
                     <span aria-hidden="true">🛒</span>
@@ -494,50 +494,23 @@
                         <div id="lista-pedidos" class="orders-list">
                             <div style="background: #f9f9f9; padding: 20px; border-radius: 6px; text-align: center;">
                                 <p class="empty-order" style="font-size: 13px; color: #777; margin-bottom: 8px;">Você ainda não tem pedidos recentes.</p>
-                                <a href="#produtos" style="font-size: 12px; color: #2c2c2c; text-decoration: underline;">Explorar produtos</a>
+                                <a href="#produtos" style="color: #2c2c2c; text-decoration: underline; font-weight: 600;">Explorar produtos</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="tab-dados" class="subtab-content" style="display: none;">
-                    <div style="background: #f9f9f9; padding: 15px; border-radius: 6px; font-size: 13px; color: #444; line-height: 1.6;">
-                        <p style="margin-bottom: 8px;"><strong>Nome:</strong> <span id="user-name-disp">-</span></p>
-                        <p><strong>Perfil:</strong> Cliente Cadastrado VERSA</p>
+                <div id="tab-dados" class="subtab-content" hidden>
+                    <div class="dashboard-section" style="background: #f9f9f9; padding: 15px; border-radius: 6px; font-size: 13px; color: #444;">
+                        <p style="margin-bottom: 6px;"><strong>Nome:</strong> <span id="user-display-name">-</span></p>
+                        <p style="margin-bottom: 6px;"><strong>E-mail:</strong> <span id="user-display-email">-</span></p>
+                        <p style="margin-bottom: 0;"><strong>Status:</strong> Conta Ativa</p>
                     </div>
                 </div>
 
-                <div style="margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px;">
-                    <button class="button button-secondary" id="logout-button" type="button" style="width: 100%;">Sair da conta</button>
-                </div>
+                <button class="button button-secondary" id="logout-button" type="button" style="width: 100%; margin-top: 15px;">Sair da conta</button>
             </div>
         </div>
     </div>
-
-    <footer class="site-footer">
-        <div class="container footer-grid">
-            <div>
-                <a class="footer-logo" href="#inicio">VERSA</a>
-                <p>Moda feminina com praticidade, estilo e personalidade.</p>
-            </div>
-            <div>
-                <h3>Navegação</h3>
-                <a href="#categorias">Categorias</a>
-                <a href="#produtos">Produtos</a>
-                <a href="#sobre">Sobre</a>
-                <a href="#contato">Contato</a>
-            </div>
-            <div>
-                <h3>Atendimento</h3>
-                <p>Segunda a sexta, 9h às 18h.</p>
-                <p>Resposta por formulário de contato.</p>
-            </div>
-        </div>
-        <div class="container footer-bottom">
-            <p>© 2026 VERSA. Projeto acadêmico Newton Paiva.</p>
-        </div>
-    </footer>
-
-    <script src="js/script.js"></script>
 </body>
 </html>
