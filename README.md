@@ -1,4 +1,3 @@
-
 # VERSA — Loja Virtual de Moda Feminina
 
 **Assunto:** Loja virtual de moda feminina integrada a banco de dados MySQL, permitindo explorar coleções e categorias, consultar guia de medidas, gerir sacola de compras, cadastrar clientes, finalizar pedidos e acompanhar o histórico de compras.
@@ -51,7 +50,7 @@
 
 ## Estrutura do Projeto
 
-
+```text
 /
 ├── README.md
 │
@@ -82,9 +81,3 @@
     ├── processa-esqueci-senha.php
     ├── processa-login.php
     └── verifica-sessao.php
-
-```
-
-```
-
-```
