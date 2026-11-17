@@ -1,6 +1,4 @@
-Aqui está o `README.md` atualizado, limpo e sem nenhuma marcação de citação:
 
-```markdown
 # VERSA — Loja Virtual de Moda Feminina
 
 **Assunto:** Loja virtual de moda feminina integrada a banco de dados MySQL, permitindo explorar coleções e categorias, consultar guia de medidas, gerir sacola de compras, cadastrar clientes, finalizar pedidos e acompanhar o histórico de compras.
@@ -53,7 +51,7 @@ Aqui está o `README.md` atualizado, limpo e sem nenhuma marcação de citação
 
 ## Estrutura do Projeto
 
-```text
+
 /
 ├── README.md
 │
